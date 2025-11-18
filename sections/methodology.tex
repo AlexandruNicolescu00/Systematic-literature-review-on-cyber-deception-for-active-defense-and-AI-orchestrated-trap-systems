@@ -1,0 +1,53 @@
+\section{Review Methodology}
+
+To systematically address our research question, this paper adopts a methodology inspired by standard Systematic Literature Review (SLR) guidelines. Our process is designed to identify, select, and synthesize relevant academic literature to map the evolution of cyber deception. The methodology is divided into three primary phases: (1) search strategy and data collection, (2) study selection criteria, and (3) data extraction and synthesis.
+
+\subsection{Search Strategy and Data Collection}
+
+Given the project's objective to map the *evolution* of deception, a purely keyword-based search in academic databases (like IEEE Xplore or ACM Digital Library) risks missing both foundational and niche emerging concepts. Therefore, we adopted a hybrid approach centered on a set of "seed" papers, supplemented by database searches and citation "snowballing."
+
+\begin{enumerate}
+    \item \textbf{Seed Paper Identification:} The initial corpus was formed from the foundational and survey papers suggested by the project's scope. This includes seminal works on honeypots \cite{spitzner2002honeypots, provos2004virtual}, foundational deception concepts \cite{cohen2006use}, and key surveys that have previously structured the field \cite{nawrocki2016survey, han2018deception, pawlick2019game}.
+
+    \item \textbf{Citation Snowballing:} This core set of seed papers was used for a two-way citation search to expand our collection:
+          \begin{itemize}
+              \item \textbf{Backward Snowballing:} We examined the bibliographies of the seed papers to identify and retrieve foundational works they commonly cited.
+              \item \textbf{Forward Snowballing:} We used academic search engines (e.g., Google Scholar) to identify more recent papers that have cited our seed papers, allowing us to capture the latest advancements and research trends.
+          \end{itemize}
+
+    \item \textbf{Supplemental Keyword Search:} To ensure comprehensive coverage, the snowballing process was supplemented with targeted keyword searches in academic databases. Search queries included combinations of terms such as: \textit{"cyber deception"}, \textit{"active defense"}, \textit{"adaptive honeypot"}, \textit{"AI driven deception"}, \textit{"game theory cyber security"}, and \textit{"moving target defense"}.
+\end{enumerate}
+
+\subsection{Inclusion and Exclusion Criteria}
+
+To ensure the quality and relevance of the reviewed literature, we applied a strict set of inclusion and exclusion criteria during the selection process. A paper was included only if it met all inclusion criteria and did not meet any exclusion criteria.
+
+\textbf{Inclusion Criteria:}
+\begin{itemize}
+    \item The study must be directly relevant to the concepts of cyber deception, honeypots, active defense, or moving target defense.
+    \item The study must be a peer-reviewed article published in a reputable conference proceeding or academic journal (e.g., IEEE, ACM, USENIX). Highly cited arXiv pre-prints were considered on a case-by-case basis \cite{deng2023pentestgpt, fang2024llm}.
+    \item The paper must be written in English.
+\end{itemize}
+
+\textbf{Exclusion Criteria:}
+\begin{itemize}
+    \item Papers focusing purely on traditional network security (e.g., firewalls, static IDS) with no element of deception.
+    \item Non-peer-reviewed "gray literature" (e.g., blog posts, magazine articles, technical reports) unless demonstrably foundational (e.g., \cite{spitzner2002honeypots} which is a book).
+    \item Duplicate papers, or older versions of a paper that was later published as a full journal or conference article.
+\end{itemize}
+
+\subsection{Data Extraction and Synthesis}
+
+For each paper that passed the selection filter, we performed a full-text review to extract relevant data points. The extraction process was systematically guided by the "Target Outcomes" defined in the project's objective.
+
+To formalize this analysis, we structured the extracted information to answer the following key questions for each paper:
+\begin{itemize}
+    \item \textbf{Deception Tactic:} What is the nature of the deception? (e.g., host-level, protocol-level, cognitive/semantic).
+    \item \textbf{Strategy Model:} Is the described system reactive (responds to attack) or proactive (anticipates attack)?
+    \item \textbf{Placement Timing:} Does the paper discuss *when* the deception is deployed (e.g., static deployment, dynamic placement)?
+    \item \textbf{Attacker Modeling:} Does the system utilize attacker profiling or cognitive modeling to inform its strategy?
+    \item \textbf{Role of AI:} What role, if any, do AI, Machine Learning (ML), Reinforcement Learning (RL), or Large Language Models (LLMs) play in the system's policy?
+    \item \textbf{Identified Gaps:} What open challenges or missing capabilities does the paper explicitly state?
+\end{itemize}
+
+This structured data was aggregated into a synthesis matrix (e.g., a spreadsheet) to facilitate the comparison of different approaches and the identification of dominant paradigms and emerging trends, which form the basis of our results in the following section.

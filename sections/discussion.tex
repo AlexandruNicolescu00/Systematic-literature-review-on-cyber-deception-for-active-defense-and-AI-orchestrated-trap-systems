@@ -1,0 +1,37 @@
+\section{Discussion and Future Challenges}
+Our systematic review confirms a clear and rapid evolutionary trajectory in cyber deception, as summarized in Figure \ref{fig:evolution}. The field has progressed from static, reactive, and host-centric \textbf{"traps"} (e.g., honeypots) \cite{spitzner2002honeypots, provos2004virtual} to dynamic, proactive, and AI-driven \textbf{"systems"} that actively manage and manipulate the adversary \cite{hammad2024deep, jajodia2011moving}.
+
+The central theme of this evolution is a strategic shift from \textit{detection} to \textit{interaction and manipulation}. Early systems sought to log and analyze attacker behavior \cite{nawrocki2016survey}, whereas modern systems, informed by game theory \cite{pawlick2019game, schlenker2018deceiving} and cognitive psychology \cite{ferguson2021examining}, seek to control it. The integration of AI is the apex of this trend, enabling predictive and adaptive policies \cite{hammad2024deep}.
+
+However, this rapid advancement has also introduced a new, complex set of open challenges. Our synthesis of the literature identifies the following "missing capabilities" and key directions for future research.
+
+\begin{figure}[h!]
+    \centering
+    % Sarà necessario creare o trovare un'immagine per questo
+    % \includegraphics[width=0.9\textwidth]{path/to/evolution_diagram.png} 
+    \fbox{\parbox[c][10cm][c]{0.9\textwidth}{\centering }}
+    \caption{The evolution of cyber deception paradigms, from static, reactive traps to dynamic, predictive, and AI-orchestrated active defense systems.}
+    \label{fig:evolution}
+\end{figure}
+
+\subsection{Future Challenges and Open Research Questions}
+
+\begin{itemize}
+    \item \textbf{Deceiving the Autonomous AI Attacker:}
+          Our review highlights a critical "arms race." While defenders develop AI-driven deception \cite{hammad2024deep}, attackers are employing autonomous LLM agents to find and exploit vulnerabilities \cite{fang2024llm, deng2023pentestgpt}. A significant open question is: \textit{What does it take to deceive an AI agent?} Deceptions designed to fool human cognitive biases \cite{ferguson2021examining} may be ineffective against an LLM. Future research must explore "AI-native" deception: creating decoy artifacts, data, or code that are semantically plausible but are specifically designed to "poison" an LLM's reasoning process or send it down a resource-intensive, false path.
+
+    \item \textbf{The Scalability and Orchestration Problem:}
+          The literature describes powerful, adaptive deception policies \cite{hammad2024deep} and game-theoretic models \cite{pawlick2019game}, but often in constrained, academic environments. A major gap exists in the engineering and orchestration of these systems at an enterprise scale. How does a defender manage thousands of dynamic, adaptive decoys across a global network without creating unmanageable complexity or performance overhead?
+
+    \item \textbf{Metrics for Proactive Deception (The "Utility" Problem):}
+          The metrics for success in classic honeypots were simple: "number of attackers caught" or "malware samples collected" \cite{nawrocki2016survey}. These metrics are obsolete for proactive systems. If a proactive deception \textit{successfully} deters an attacker, it generates no logs and its success is invisible. Future work must develop new, robust metrics to quantify the "utility" of proactive deception. This might include "attacker time wasted," "cost inflicted on the adversary," or "degree of false intelligence successfully planted."
+
+    \item \textbf{The Cognitive-Level Deception Frontier:}
+          While some research has begun to explore the psychology of deception \cite{ferguson2021examining}, this area remains nascent. Most systems are still technically-focused. The next generation of deception (as specified in the project goals) will need to be "intent-aware." This requires moving from host/network profiling to "cognitive/semantic" profiling, modeling the attacker's goals, beliefs, and biases to create entire fabricated narratives (e.g., fake projects, fake user conflicts) that manipulate them on a human level.
+
+    \item \textbf{The "Cry Wolf" Problem and Analyst Fatigue:}
+          An AI-driven system designed to be highly enticing to attackers may generate a significant volume of high-quality "alerts." If human analysts are required to investigate every interaction within these advanced honeypots, they may quickly become overwhelmed. Research is needed on the "human-in-the-loop" aspect: how to use AI to not only \textit{run} the deception but also to \textit{triage and summarize} the results for a human operator, distinguishing trivial bot interactions from high-priority human adversaries.
+
+    \item \textbf{Ethical and Legal Boundaries:}
+          Finally, as deception shifts from passive "honeypots" to proactive, "cognitive" manipulation \cite{ferguson2021examining} and active engagement, it approaches a dangerous legal and ethical gray area. Where is the line between "active defense" and unauthorized "hacking back" or entrapment? The academic literature is heavily focused on technical capability, with very little discussion on the legal frameworks required to govern these powerful new technologies.
+\end{itemize}

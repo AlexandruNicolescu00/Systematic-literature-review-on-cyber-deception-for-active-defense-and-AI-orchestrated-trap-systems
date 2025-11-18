@@ -1,0 +1,54 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}         
+\usepackage[english]{babel}     
+
+\usepackage[margin=1in]{geometry}
+\linespread{1.1}                
+
+\usepackage{graphicx}       
+\usepackage{amsmath}           
+\usepackage{hyperref}         
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    citecolor=red
+}
+
+\usepackage[
+    backend=biber,             
+    style=ieee,               
+    sorting=nyt           
+]{biblatex}
+\usepackage{csquotes}
+
+\addbibresource{bibliography.bib} 
+
+\title{A Systematic Literature Review on Cyber Deception \\ \large (Provisional Title to be Changed)}
+\author{Alexandru Nicolescu \\ \small University of Bologna}
+\date{December 2025}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\include{sections/introduction.tex}
+
+\include{sections/methodology.tex}
+
+\include{sections/literature_and_results.tex}
+
+\include{sections/discussion.tex}
+
+\include{sections/conclusion.tex}
+
+% --- BIBLIOGRAPHY ---
+\newpage
+\printbibliography[title={References}]
+
+\end{document}
