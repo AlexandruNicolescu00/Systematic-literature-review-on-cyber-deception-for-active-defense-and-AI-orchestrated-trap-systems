@@ -1,19 +1,69 @@
 \section{Introduction}
 
-In an increasingly complex and adversarial digital landscape, traditional perimeter-based defenses such as firewalls and Intrusion Detection Systems (IDS) have proven insufficient against sophisticated, persistent threats. This reality has catalyzed a strategic pivot from passive, static defense to \textbf{active defense} paradigms \cite{jajodia2011moving}. Within this domain, \textbf{cyber deception} has emerged as a powerful and proactive strategy. Rather than merely blocking attacks, deception aims to mislead, misdirect, and engage adversaries, turning their own intelligence-gathering efforts against them to waste their resources, reveal their intentions, and create a significant asymmetric advantage for the defender \cite{pawlick2019game, rowe2016introduction, han2018deception}.
+Cybersystems today operate in a highly hostile environment, effectively described as
+a state of war. Networks are under constant assault from a diverse array of malicious
+actors---including cybercriminals, state-sponsored spies, disgruntled insiders, and
+hacktivists---who exploit software flaws for financial gain, political agendas, or power.
 
-The foundational concept of cyber deception is rooted in the idea of \textbf{honeypots}: decoy systems designed to be probed and attacked \cite{cohen2006use}. Early implementations, such as those discussed by Lance Spitzner, focused on creating "virtual playgrounds" to track and analyze attacker methodologies in a contained environment \cite{spitzner2002honeypots}. These systems evolved from simple, low-interaction traps to complex, high-interaction frameworks that provided deep, actionable intelligence on attacker behavior \cite{provos2004virtual, cohen2006use}. However, these initial systems were largely static and reactive; they passively waited for an attacker to interact with them. Comprehensive surveys of this era, such as by Nawrocki et al., systematically categorized the landscape of honeypot software and the data analysis techniques used to process their logs \cite{nawrocki2016survey}.
+To counter these threats, defenders have traditionally relied on a layered security
+model. The \textbf{first line of defense} consists of Access Controls, which aim to
+prevent unauthorized entry. However, these controls are frequently subverted by
+vulnerabilities or misconfigurations. When access controls fail, defenders rely on
+a \textbf{second line of defense}: Intrusion Detection Systems (IDS). While valuable,
+traditional IDS are largely reactive; they depend on recognizing known ``signatures''
+of malicious behavior, making them ineffective against novel (zero-day) attacks or
+sophisticated variants.
 
-As the field matured, the scope of deception expanded far beyond simple honeypots. Researchers began to formalize deception as a comprehensive security discipline. Landmark surveys, such as the one by Han et al., provided a structured research perspective, creating taxonomies that categorized deception techniques based on their objectives, deployment levels (e.g., host, network, application), and methods \cite{han2018deception}. This formalization fueled new avenues of research. Scholars began applying \textbf{game theory} to model the strategic interactions between attackers and defenders, seeking to optimize the placement and timing of deceptive artifacts \cite{carroll2011game,schlenker2018deceiving}. Concurrently, other works explored the \textbf{cognitive and psychological} aspects of deception, investigating how to manipulate the human attacker's decision-making processes, not just their automated tools \cite{ferguson2021examining}.
+This inadequacy of traditional mechanisms creates the critical need for a
+\textbf{third line of defense}: \textbf{cyber deception}. As a form of ``Active
+Defense,'' deception moves beyond merely spotting anomalies; it actively misleads
+adversaries who have bypassed perimeter security. By deliberately injecting false
+information---lying, cheating, and misleading---the system can waste an attacker's
+resources and prevent them from achieving their goals, even after they have gained
+access \cite{rowe2016introduction}.
 
-Today, the field is in the midst of another fundamental shift, driven by an accelerating "arms race" powered by Artificial Intelligence (AI). Modern adversaries are no longer just human operators or simple scripts; they are increasingly sophisticated, AI-driven agents. Attackers now leverage Large Language Models (LLMs) to automate complex penetration testing tasks \cite{deng2023pentestgpt} and, in cutting-edge scenarios, deploy autonomous LLM agents capable of independently discovering and exploiting vulnerabilities \cite{fang2024llm}.
+Historically, the foundational implementation of this third line of defense was the
+\textbf{honeypot} \cite{cohen2006use}. Defined by Lance Spitzner as a
+\textbf{security resource whose value lies in being probed, attacked, or compromised},
+these systems were utilized to track and analyze attacker methodologies in a contained
+environment \cite{spitzner2002honeypots}. The technology evolved from simple,
+low-interaction traps to versatile virtual frameworks like \textbf{Honeyd}
+\cite{provos2004virtual}, which enabled the simulation of large-scale network
+topologies to provide deep, actionable intelligence. However, despite these
+advancements, initial solutions remained largely static and passively waited for
+interaction, as noted in comprehensive surveys of that era \cite{nawrocki2016survey}.
 
-This rapid evolution in offensive capabilities demands a corresponding evolution in defense. Static, predictable deception systems are no longer sufficient. This has given rise to the concepts of \textbf{adaptive and AI-driven deception}, where defensive systems use machine learning—such as Deep Reinforcement Learning (RL)—to orchestrate deception policies in real-time, dynamically adapting to attacker behavior \cite{ferguson2021examining}.
+As the field matured, the scope of deception expanded. Researchers began to formalize
+the discipline, creating structured taxonomies to categorize techniques by objective
+and deployment level \cite{han2018deception}. This formalization fueled new avenues
+of research: scholars applied \textbf{game theory} to model the strategic interactions
+between attackers and defenders, seeking to optimize the placement and timing of
+deceptive artifacts \cite{carroll2011game,schlenker2018deceiving}. Concurrently,
+other works explored the \textbf{cognitive} aspects of deception, investigating how
+to manipulate the human attacker's decision-making processes rather than just their
+automated tools \cite{ferguson2021examining}.
 
-This clear and rapid trajectory—from static traps to intelligent, predictive, and adaptive defensive systems—presents a complex and fragmented research landscape. To map this evolution and identify critical gaps, this paper conducts a Systematic Literature Review (SLR). Our objective is guided by the following research question:
+Today, the field is undergoing another fundamental shift, driven by an accelerating
+``arms race'' powered by Artificial Intelligence (AI). Modern adversaries are no
+longer just human operators; they are increasingly sophisticated, AI-driven agents
+leveraging Large Language Models (LLMs) to automate complex attacks
+\cite{deng2023pentestgpt,fang2024llm}. This evolution demands a corresponding leap
+in defense, giving rise to \textbf{adaptive, AI-driven deception}, where systems
+use Reinforcement Learning (RL) to orchestrate defense policies in real-time
+\cite{hammad2024deep}.
+
+This clear trajectory---from static traps to intelligent, predictive systems---presents
+a complex research landscape. To map this evolution, this project conducts a Systematic
+Literature Review (SLR) guided by the following research question:
 
 \begin{quote}
-    \textit{"What are the dominant paradigms, open challenges, and emerging research directions in cyber deception, particularly in the shift from static/reactive honeypots to adaptive, AI-driven and predictive deception systems?"}
+    \textit{``What are the dominant paradigms, open challenges, and emerging research
+        directions in cyber deception, particularly in the shift from static/reactive
+        honeypots to adaptive, AI-driven and predictive deception systems?''}
 \end{quote}
 
-To answer this question, this review first outlines our methodology for source selection and analysis. It then presents the results of the literature synthesis, structured around the project's key target outcomes: the taxonomy of deception tactics, the implementation of proactive strategies, the use of attacker profiling, and the emerging role of AI orchestration. Finally, we discuss the identified gaps and open challenges in the field to propose key directions for future research.
+To answer this question, this review first outlines key definitions and concepts.
+It then presents the results of the literature synthesis, structured around the
+project's key target outcomes: the taxonomy of deception tactics, the implementation
+of proactive strategies, the use of attacker profiling, and the emerging role of AI.
+Finally, we discuss identified gaps and propose directions for future research.

@@ -1,25 +1,61 @@
 \section{Key Definitions and Concepts}
 
-Before analyzing the evolutionary trajectory of cyber deception, it is essential to establish a precise vocabulary. The literature uses several overlapping terms to describe defensive countermeasures. This section defines the core concepts that form the basis of this review.
+Before analyzing the evolutionary trajectory of cyber deception, it is essential to
+establish a precise vocabulary. The literature uses several overlapping terms to
+describe defensive countermeasures. This section defines the core concepts that form
+the basis of this review.
 
 \begin{description}
 
-    \item[Cyber Deception]
-    Unlike traditional security measures that aim to deny access, cyber deception consists of deliberate actions taken by a defender to mislead an adversary. As defined by Han et al., it involves the manipulation of the attacker's perception, beliefs, or actions to cause them to fail or waste resources \cite{han2018deception}. It is a broad strategy that encompasses concealing the truth (dissimulation) and showing the false (simulation) \cite{rowe2016introduction, pawlick2019game}.
+      \item[Cyber Deception]
+            Unlike traditional security measures that aim to deny access, cyber deception
+            consists of deliberate actions taken by a defender to mislead an adversary.
+            As defined by Han et al., it involves the manipulation of the attacker's
+            perception, beliefs, or actions to cause them to fail or waste resources
+            \cite{han2018deception}. It is a broad strategy that encompasses concealing
+            the truth (dissimulation) and showing the false (simulation)
+            \cite{rowe2016introduction,pawlick2019game}.
 
-    \item[Honeypot]
-    The honeypot is the foundational tool of cyber deception. According to Lance Spitzner's seminal definition, a honeypot is "a security resource whose value lies in being probed, attacked, or compromised" \cite{spitzner2002honeypots}. It is a decoy system that has no production value; therefore, any interaction with it is inherently suspicious. Honeypots are historically categorized as either \textit{low-interaction} (emulating services) or \textit{high-interaction} (providing real operating systems) \cite{provos2004virtual, nawrocki2016survey}.
 
-    \item[Active Defense]
-    This term refers to a proactive cybersecurity doctrine that contrasts with passive defense (e.g., firewalls). Active defense involves real-time engagement with the adversary. It is the operational framework within which modern deception is often deployed. The goal is to raise the cost of the attack and increase the risk of detection for the adversary \cite{jajodia2011moving}.
+      \item[Honeypot]
+            The honeypot is the foundational tool of cyber deception. According to Lance
+            Spitzner's seminal definition, a honeypot is ``a security resource whose value
+            lies in being probed, attacked, or compromised'' \cite{spitzner2002honeypots}.
+            It is a decoy system that has no production value; therefore, any interaction
+            with it is inherently suspicious. Honeypots are historically categorized as
+            either \textit{low-interaction} (emulating services) or \textit{high-interaction}
+            (providing real operating systems) \cite{provos2004virtual,nawrocki2016survey}.
 
-    \item[Moving Target Defense (MTD)]
-    Often integrated with deception, MTD is a strategy that aims to create "asymmetric uncertainty" for the attacker. It involves dynamically shifting the system's attack surface (e.g., changing IP addresses, port mappings, or runtime environments) to invalidate the intelligence collected by an attacker during their reconnaissance phase \cite{jajodia2011moving}.
 
-    \item[Game Theory in Security]
-    A mathematical framework used extensively in modern deception research to model the strategic interaction between a rational attacker and a defender. In this context, deception is viewed as a game where the defender attempts to optimize their payoff (e.g., minimizing impact) by predicting the attacker's moves based on their incentives and available information \cite{carroll2011game, zhu2015game, pawlick2019game}.
+      \item[Active Defense]
+            This term refers to a proactive cybersecurity doctrine that contrasts with
+            passive defense. Active defense involves real-time engagement with the adversary.
+            It is the operational framework within which modern deception is often deployed.
+            The goal is to raise the cost of the attack and increase the risk of detection
+            for the adversary \cite{jajodia2011moving}.
 
-    \item[Adaptive Deception]
-    An emerging paradigm where the deception strategy is not static but evolves in response to the attacker's behavior. In recent literature, this is often achieved through Artificial Intelligence techniques, such as Reinforcement Learning (RL), which allow the system to learn optimal defense policies through trial-and-error interactions with the threat \cite{hammad2024deep}.
+
+      \item[Moving Target Defense (MTD)]
+            Often integrated with deception, MTD is a strategy that aims to create
+            ``asymmetric uncertainty'' for the attacker. It involves dynamically shifting
+            the system's attack surface to invalidate the intelligence collected by an
+            attacker during their reconnaissance phase \cite{jajodia2011moving}.
+
+
+      \item[Game Theory in Security]
+            A mathematical framework used extensively in modern deception research to
+            model the strategic interaction between a rational attacker and a defender.
+            In this context, deception is viewed as a game where the defender attempts
+            to optimize their payoff by predicting the attacker's moves based on their
+            incentives and available information
+            \cite{carroll2011game,zhu2015game,pawlick2019game}.
+
+
+      \item[Adaptive Deception]
+            An emerging paradigm where the deception strategy is not static but evolves
+            in response to the attacker's behavior. In recent literature, this is often
+            achieved through Artificial Intelligence techniques, such as Reinforcement
+            Learning (RL), which allow the system to learn optimal defense policies through
+            trial-and-error interactions with the threat \cite{hammad2024deep}.
 
 \end{description}

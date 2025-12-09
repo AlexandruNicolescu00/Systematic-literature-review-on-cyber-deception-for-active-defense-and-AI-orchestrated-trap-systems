@@ -1,36 +1,46 @@
 \section{Discussion and Future Challenges}
-Our systematic review confirms a clear and rapid evolutionary trajectory in cyber deception, as summarized in Figure \ref{fig:evolution}. The field has progressed from static, reactive, and host-centric \textbf{"traps"} (e.g., honeypots) \cite{spitzner2002honeypots, provos2004virtual} to dynamic, proactive, and AI-driven \textbf{"systems"} that actively manage and manipulate the adversary \cite{hammad2024deep, jajodia2011moving}.
 
+This review confirms a clear and rapid evolutionary trajectory in cyber deception. The field has progressed from static, reactive, and host-centric \textbf{"traps"} \cite{spitzner2002honeypots, provos2004virtual} to dynamic, proactive, and AI-driven \textbf{"systems"} that actively manage and manipulate the adversary \cite{hammad2024deep}.
 The central theme of this evolution is a strategic shift from \textit{detection} to \textit{interaction and manipulation}. Early systems sought to log and analyze attacker behavior \cite{nawrocki2016survey}, whereas modern systems, informed by game theory \cite{pawlick2019game, schlenker2018deceiving} and cognitive psychology \cite{ferguson2021examining}, seek to control it. The integration of AI is the apex of this trend, enabling predictive and adaptive policies \cite{hammad2024deep}.
 
-However, this rapid advancement has also introduced a new, complex set of open challenges. Our synthesis of the literature identifies the following "missing capabilities" and key directions for future research.
-
-\begin{figure}[h!]
-      \centering
-      % Sarà necessario creare o trovare un'immagine per questo
-      % \includegraphics[width=0.9\textwidth]{path/to/evolution_diagram.png} 
-      \fbox{\parbox[c][10cm][c]{0.9\textwidth}{\centering }}
-      \caption{The evolution of cyber deception paradigms, from static, reactive traps to dynamic, predictive, and AI-orchestrated active defense systems.}
-      \label{fig:evolution}
-\end{figure}
+However, this rapid advancement has also introduced a new, complex set of open challenges. The following "missing capabilities" and key directions for future research are identified.
 
 \subsection{Future Challenges and Open Research Questions}
 
-
 \paragraph{Deceiving the Autonomous AI Attacker:}
-Our review highlights a critical "arms race." While defenders develop AI-driven deception \cite{hammad2024deep}, attackers are employing autonomous LLM agents to find and exploit vulnerabilities \cite{fang2024llm, deng2023pentestgpt}. A significant open question is: \textit{What does it take to deceive an AI agent?} Deceptions designed to fool human cognitive biases \cite{ferguson2021examining} may be ineffective against an LLM. Future research must explore "AI-native" deception: creating decoy artifacts, data, or code that are semantically plausible but are specifically designed to "poison" an LLM's reasoning process or send it down a resource-intensive, false path.
+The review highlights a critical "arms race." While defenders develop AI-driven deception \cite{hammad2024deep}, attackers are employing autonomous LLM agents to find and exploit vulnerabilities \cite{fang2024llm, deng2023pentestgpt}. A significant open question is: \textit{What does it take to deceive an AI agent?} Deceptions designed to fool human cognitive biases (e.g., confirmation bias) \cite{ferguson2021examining} may be ineffective against an LLM driven by logical inference chains. Future research must explore "AI-native" deception: creating decoy artifacts, data, or code that are semantically plausible but are specifically designed to "poison" an LLM's reasoning process (e.g., prompt injection traps) or send the agent down a resource-intensive, false path of the "Pentesting Task Tree" described by Deng et al. \cite{deng2023pentestgpt}.
 
-\paragraph{The Scalability and Orchestration Problem:}
-The literature describes powerful, adaptive deception policies \cite{hammad2024deep} and game-theoretic models \cite{pawlick2019game}, but often in constrained, academic environments. A major gap exists in the engineering and orchestration of these systems at an enterprise scale. How does a defender manage thousands of dynamic, adaptive decoys across a global network without creating unmanageable complexity or performance overhead?
+\paragraph{The Scalability and State-Space Explosion:}
+While Deep Reinforcement Learning (DRL) offers powerful adaptive capabilities, Hammad et al. note the challenge of high dimensionality in network environments. As the network size increases, the "State Space" in the Markov Decision Process grows exponentially \cite{hammad2024deep}. A major gap exists in engineering these systems for enterprise scale: training a DRL agent on a massive, dynamic network requires significant computational resources and convergence time. Future work must investigate hierarchical RL or transfer learning to manage this complexity without compromising real-time performance.
 
 \paragraph{Metrics for Proactive Deception (The "Utility" Problem):}
-The metrics for success in classic honeypots were simple: "number of attackers caught" or "malware samples collected" \cite{nawrocki2016survey}. These metrics are obsolete for proactive systems. If a proactive deception \textit{successfully} deters an attacker, it generates no logs and its success is invisible. Future work must develop new, robust metrics to quantify the "utility" of proactive deception. This might include "attacker time wasted," "cost inflicted on the adversary," or "degree of false intelligence successfully planted."
+The metrics for success in classic honeypots were simple: "number of attackers caught" or "malware samples collected" \cite{nawrocki2016survey}. These metrics are obsolete for proactive systems modeled on Game Theory. As noted by Pawlick et al., the goal is to maximize the defender's expected \textit{utility} (payoff) \cite{pawlick2019game}. However, defining accurate payoff matrices for irrational or unknown adversaries is difficult. If a proactive deception \textit{successfully} deters an attacker, it generates no logs and its success is invisible. Future work must develop robust metrics to quantify this "invisible utility," such as "attacker costs increased" or "informational advantage gained" \cite{pawlick2019game}.
+In recent years, several frameworks have been proposed to tackle the problem
+of measuring cyber deception effectiveness. Some works introduce metric suites
+for interconnected complex systems that quantify both attacker opportunities and
+defender capabilities, enabling an estimation of how decoy placement impacts
+the effective attack surface \cite{deceptionmetrics2022}.
+
 
 \paragraph{The Cognitive-Level Deception Frontier:}
-While some research has begun to explore the psychology of deception \cite{ferguson2021examining}, this area remains nascent. Most systems are still technically-focused. The next generation of deception (as specified in the project goals) will need to be "intent-aware." This requires moving from host/network profiling to "cognitive/semantic" profiling, modeling the attacker's goals, beliefs, and biases to create entire fabricated narratives (e.g., fake projects, fake user conflicts) that manipulate them on a human level.
+While research by Ferguson-Walter et al. has begun to explore the psychology of deception, focusing on disrupting the OODA loop, this area remains nascent \cite{ferguson2021examining}. Most systems remain technically focused. The next generation of deception must move from generic profiling to "intent-aware" adaptation. This implies creating systems capable of identifying the attacker's specific cognitive biases (e.g., the decoy effect) and dynamically generating false narratives that exploit those specific weaknesses, rather than presenting a static fake environment to all comers \cite{ferguson2021examining}.
 
 \paragraph{The "Cry Wolf" Problem and Analyst Fatigue:}
-An AI-driven system designed to be highly enticing to attackers may generate a significant volume of high-quality "alerts." If human analysts are required to investigate every interaction within these advanced honeypots, they may quickly become overwhelmed. Research is needed on the "human-in-the-loop" aspect: how to use AI to not only \textit{run} the deception but also to \textit{triage and summarize} the results for a human operator, distinguishing trivial bot interactions from high-priority human adversaries.
+An AI-driven system designed to be highly enticing to attackers may generate a significant volume of alerts. Research is needed on the "human-in-the-loop" aspect: utilizing the same LLM technologies used for offense \cite{deng2023pentestgpt} to \textit{triage and summarize} defensive engagements. The challenge is to distinguish between automated bot interactions and high-priority human (or AI-agent) adversaries without overwhelming security analysts.
 
 \paragraph{Ethical and Legal Boundaries:}
-Finally, as deception shifts from passive "honeypots" to proactive, "cognitive" manipulation \cite{ferguson2021examining} and active engagement, it approaches a dangerous legal and ethical gray area. Where is the line between "active defense" and unauthorized "hacking back" or entrapment? The academic literature is heavily focused on technical capability, with very little discussion on the legal frameworks required to govern these powerful new technologies.
+Finally, as deception shifts from passive "honeypots" to proactive manipulation \cite{ferguson2021examining} and active engagement, it approaches a dangerous legal gray area. While the literature focuses on technical capabilities, there is a lack of frameworks defining the boundary between legitimate "Active Defense" (misleading an intruder on your own network) and unauthorized counter-measures. Establishing these boundaries is essential for the adoption of autonomous deceptive agents in corporate environments.
+
+Recent literature further illustrates how honeypot fingerprinting poses a concrete
+threat to the credibility of deception systems. Multistage frameworks for
+honeypot fingerprinting demonstrate that many existing deployments can be
+reliably identified by combining active probing with response analysis
+\cite{honeypotfingerprint2021}. Studies focused on smart grid and OT
+environments propose taxonomies of fingerprinting techniques and design
+guidelines for more realistic honeypots, highlighting the need to accurately
+model protocol stacks, timing behaviour, and error patterns
+\cite{sgfingerprint2023,otfingerprint2025}. These findings reinforce the idea,
+discussed in this review, that the next generation of deception systems must
+be not only adaptive but also intrinsically resilient to fingerprinting, for example
+by leveraging LLM-guided response generation and coherent behavioural
+randomisation \cite{honeygpt2025,shellm2024}.

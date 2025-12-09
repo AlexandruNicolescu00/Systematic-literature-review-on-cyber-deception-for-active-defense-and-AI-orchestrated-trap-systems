@@ -4,145 +4,261 @@ The systematic review of the selected literature reveals a clear and significant
 
 \subsection{Taxonomy of Deception Tactics}
 
-A primary finding from our review is that no single, unified taxonomy for cyber deception exists. Instead, the literature presents several overlapping frameworks that categorize tactics based on their deployment layer, their strategic purpose, or their target (system vs. human).
+A primary finding from this review is that cyber deception is not a monolithic concept but can be classified through multiple, overlapping frameworks. The literature predominantly categorizes these tactics through two lenses: the \textit{conceptual mechanism} (how the deception works) and the \textit{deployment layer} (where the deception resides).
 
-A cornerstone survey by Han et al. provides a comprehensive research perspective, organizing techniques by their interaction level, their deployment stage (e.g., prevention, detection, response), and their fundamental properties \cite{han2018deception}. Similarly, Pawlick et al. introduce a taxonomy from a game-theoretic viewpoint, classifying deception based on its utility in manipulating an attacker's "payoff" matrix through actions like concealing, revealing, or fabricating information \cite{pawlick2019game}.
+\subsubsection{Conceptual Frameworks: Simulation vs. Dissimulation}
 
-Synthesizing these frameworks, the tactics can be broadly grouped into the categories specified by our project's objectives: host-level, protocol-level, and cognitive/semantic-level.
+Foundational research, particularly the surveys by Han et al. and Pawlick et al., organizes deception around the dichotomy of hiding the real versus showing the false \cite{han2018deception,pawlick2019game}.
 
 \begin{itemize}
-    \item \textbf{Host-Level Tactics:} This is the most established category, rooted in classic honeypot research. These tactics involve creating decoy artifacts within a single host to mislead an attacker who has already gained access. This includes:
-          \begin{itemize}
-              \item \textbf{Decoy Files and Credentials:} (e.g., fake password files, database dumps, API keys) designed to be exfiltrated.
-              \item \textbf{Decoy Services and Processes:} (e.g., emulating a vulnerable SSH or FTP service) to lure attackers.
-              \item \textbf{Honeypots:} This is the quintessential host-level tactic, ranging from low-interaction "virtual" frameworks that emulate services \cite{provos2004virtual} to high-interaction systems that provide a full, monitored operating system for attackers \cite{spitzner2002honeypots, nawrocki2016survey}.
-          \end{itemize}
+    \item \textbf{Dissimulation (Hiding the Real):} These tactics aim to conceal the truth about the defender's network state. Pawlick et al. classify these into three mechanisms:
+          \begin{enumerate}
+              \item \textit{Masking:} Making an existing target invisible or inaccessible.
+              \item \textit{Repackaging:} Disguising a valuable asset to look like something benign.
+              \item \textit{Dazzling:} Confusing the adversary so they cannot distinguish the target \cite{pawlick2019game}.
+          \end{enumerate}
 
-    \item \textbf{Protocol-Level (or Network-Level) Tactics:} These tactics operate at the network layer to manipulate an adversary's perception of the network topology, its assets, or its traffic. The goal is to make reconnaissance difficult and to lure attackers toward monitored decoys. Examples include:
-          \begin{itemize}
-              \item \textbf{Network Topology Obfuscation:} Using techniques from Moving Target Defense (MTD) to randomize IP addresses, ports, or network routes \cite{jajodia2011moving}.
-              \item \textbf{Decoy Service Advertisement:} (e.g., fake DNS responses, ARP poisoning) to redirect malicious traffic toward deception environments \cite{rowe2016introduction}.
-              \item \textbf{Honey-Tokens:} (e.g., fake user accounts, database entries) that are not just host-based but are tied to network services (e.g., a fake VPN account) \cite{cohen2006use}.
-          \end{itemize}
-
-    \item \textbf{Cognitive/Semantic-Level Tactics:} This represents the most advanced and recent category of deception, moving beyond fooling automated tools to target the \textit{human attacker} directly. The goal is not just to mimic a system, but to manipulate the attacker's beliefs, biases, and decision-making processes.
-          \begin{itemize}
-              \item \textbf{Psychological Deception:} As explored by Ferguson-Walter et al., this involves designing deceptions that exploit known cognitive biases (e.g., confirmation bias) to make an attacker overconfident or lead them down a specific, fabricated investigation path \cite{ferguson2021examining}.
-              \item \textbf{Semantic Deception:} This involves fabricating the *meaning* and *context* of information. For example, rather than just a fake file, the system plants a series of fake emails, documents, and code repositories that together tell a plausible but entirely false story, designed to mislead an adversary's strategic goals.
-          \end{itemize}
+    \item \textbf{Simulation (Showing the False):} These tactics involve fabricating information. The taxonomy identifies three corresponding mechanisms:
+          \begin{enumerate}
+              \item \textit{Mimicking:} Creating a fake artifact that perfectly resembles a real one.
+              \item \textit{Inventing:} Creating entirely new, non-existent assets.
+              \item \textit{Decoying:} Misdirecting the attacker's attention toward a trap \cite{pawlick2019game,han2018deception}.
+          \end{enumerate}
 \end{itemize}
 
-This taxonomic evolution from host-level (mimicking systems) to cognitive-level (manipulating humans) is a central theme in our findings. It demonstrates a clear shift in the discipline from low-level system mimicry to high-level, information-based psychological manipulation.
+\subsubsection{Taxonomy by Deployment Layer}
+
+Synthesizing the practical implementations found in the literature \cite{cohen2006use,rowe2016introduction,nawrocki2016survey}, we classify the tactics into three operational layers:
+
+\begin{enumerate}
+    \item \textbf{Network and Protocol-Level Tactics:}
+          These operate on the communication channels to manipulate the adversary's reconnaissance view or resource consumption.
+          \begin{itemize}
+              \item \textbf{Topology Manipulation:} Using Moving Target Defense (MTD) to randomize IP addresses and routes, preventing accurate network mapping \cite{jajodia2011moving}.
+              \item \textbf{Protocol Emulation:} Tools like \textit{Honeyd} or \textit{Responder} simulate protocol stacks to mimic different operating systems, complicating the attacker's fingerprinting efforts \cite{cohen2006use,provos2004virtual}.
+              \item \textbf{TCP Session Manipulation:} The \textit{Invisible Router (IR)} introduced protocol-level deceptions such as "dazzlements" and "Window zero" responses. These force TCP sessions to remain open indefinitely, consuming the attacker's resources \cite{cohen2006use}.
+              \item \textbf{Decoy Services:} The advertisement of fake services (e.g., via ARP spoofing or fake DNS entries) to redirect traffic to monitored VLANs \cite{rowe2016introduction}.
+              \item \textbf{Mirroring:} Advanced techniques where malicious traffic is reflected back to the attacker or diverted to sensors to confuse their analysis \cite{cohen2006use}.
+          \end{itemize}
+
+    \item \textbf{Host and Application-Level Tactics:}
+          These are artifacts deployed on endpoints to trap attackers who have bypassed the network perimeter or to detect client-side threats.
+          \begin{itemize}
+              \item \textbf{Server-Side Honeypots:} Traditional decoys ranging from low-interaction scripts to high-interaction "virtual playgrounds" designed to be probed \cite{spitzner2002honeypots}.
+              \item \textbf{Shadow Honeypots:} Hybrid systems where an anomaly detector transparently redirects suspicious traffic from a production server to a shadow instance for safe analysis and containment \cite{nawrocki2016survey}.
+              \item \textbf{Honeyclients:} Unlike passive honeypots, these are active client-side systems that interact with potentially malicious servers (e.g., visiting websites) to detect drive-by downloads and browser-based exploits \cite{nawrocki2016survey}.
+              \item \textbf{Honey-Tokens:} Static pieces of data (e.g., AWS keys, database credentials, fake cookies) left on a system that trigger alerts when used \cite{nawrocki2016survey}.
+              \item \textbf{Execution Wrappers:} Mechanisms that intercept specific system calls or process executions to feed false information to unauthorized programs \cite{cohen2006use}.
+          \end{itemize}
+
+    \item \textbf{Cognitive and Semantic-Level Tactics:}
+          Moving beyond technical artifacts, this layer targets the human adversary's decision loop (OODA loop).
+          \begin{itemize}
+              \item \textbf{False Narratives:} Constructing a coherent but fake "story" within the network (e.g., fake project folders, email threads) to induce the attacker to make wrong strategic decisions \cite{ferguson2021examining}.
+              \item \textbf{Linguistic Deception:} Manipulating the semantic content of data so the attacker exfiltrates useless information without realizing it \cite{rowe2016introduction}.
+              \item \textbf{Fake Defensive Errors:} Generating simulated failures or error messages to mask the system's true state or to convince an attacker that a successful exploit has failed \cite{rowe2016introduction}.
+          \end{itemize}
+\end{enumerate}
+
+\paragraph{Modern Adaptive Architectures:}
+More recent work further extends the role of honeypots within the broader cyber
+deception landscape by introducing adaptive and domain-specific architectures.
+For instance, AIIPot presents an intelligent-interaction honeypot for IoT devices
+that can automatically adapt its behaviour to attacker actions, prolonging sessions
+and increasing the amount of collected threat intelligence \cite{aiipot2023}.
+HoneyDOC, on the other hand, proposes an ``all-round'' honeypot architecture
+designed to support multiple defensive goals (early detection, forensic analysis,
+risk measurement) while improving both coverage and stealth \cite{honeydoc2024}.
+Other proposals, such as IoTFlowGenerator, focus on synthesising realistic IoT
+traffic traces to make deceptive environments more credible and to reduce the
+risk of fingerprinting in IoT settings \cite{iotflowgenerator2023}.
 \subsection{Reactive vs. Proactive Deception Strategies}
 
-Beyond the classification of deception tactics, our literature review identifies a fundamental dichotomy in their strategic deployment: the distinction between \textbf{reactive} and \textbf{proactive} strategies. This shift from reactive to proactive models represents one of the most significant evolutionary steps in the entire domain of cyber deception.
+Beyond the classification of deception tactics, this literature review identifies a fundamental dichotomy in their strategic deployment: the distinction between \textbf{reactive} and \textbf{proactive} strategies. This shift from reactive to proactive models represents one of the most significant evolutionary steps in the entire domain of cyber deception.
 
 \subsubsection{Reactive Deception}
 
 Reactive deception is the classic paradigm, synonymous with the foundational honeypot systems. In this model, the deceptive artifact is static and passive, designed to be discovered and triggered by an attacker. The defense mechanism does not act until the adversary initiates an interaction.
 
+\paragraph{Core Function:} The primary goals of reactive deception are detection, forensic analysis, and intelligence gathering. Systems are designed to log attacker keystrokes, capture malware samples, and understand adversary methodologies \cite{nawrocki2016survey}. By maintaining a "low profile," these systems minimize interference with legitimate traffic, activating only upon direct engagement \cite{provos2004virtual}.
 
-\paragraph{Core Function:} The primary goals of reactive deception are detection, forensic analysis, and intelligence gathering. Systems are designed to log attacker keystrokes, capture malware samples, and understand adversary methodologies \cite{nawrocki2016survey}.
-\paragraph{Classic Examples:} Low-interaction honeypots that emulate services \cite{provos2004virtual} and high-interaction honeypots that provide a full, monitored environment \cite{spitzner2002honeypots} are the quintessential examples. They "wait" for an attacker to make a move.
-\paragraph{Limitations:} The principal drawback of this strategy is that it concedes the initiative. An attacker dictates the time and pace of the interaction, and sophisticated adversaries may be able to detect and bypass these static traps.
+\paragraph{Classic Examples:} Low-interaction honeypots that emulate services (e.g., Honeyd) \cite{provos2004virtual} and high-interaction honeypots that provide a full, monitored environment \cite{spitzner2002honeypots} are the quintessential examples. They "wait" for an attacker to make a move.
 
+\paragraph{Limitations:} The principal drawback of this strategy is that it concedes the initiative. An attacker dictates the time and pace of the interaction. Furthermore, static honeypots are highly susceptible to \textbf{fingerprinting}: experienced adversaries can identify specific signatures or anomalies in the emulated services to distinguish decoys from production systems, subsequently bypassing them \cite{nawrocki2016survey}. This reliance on the attacker making a mistake renders the defense less effective against cautious, advanced operators \cite{rowe2016introduction}.
 
 \subsubsection{Proactive Deception}
 
 Proactive deception, in contrast, involves the defender taking the initiative. Instead of passively waiting, the system actively anticipates, guides, or manipulates the attacker, often before they have even identified a real target. This strategy is central to modern active defense.
 
-\paragraph{Core Function:} The goals are deterrence, pre-emption, attack-slowing, and active misdirection. The system attempts to shape the attacker's perception of the battlespace to the defender's advantage.
+\paragraph{Core Function:} The goals are deterrence, pre-emption, attack-slowing, and active misdirection. The system attempts to shape the attacker's perception of the battlespace to the defender's advantage, creating a state of \textbf{information asymmetry} where the attacker cannot distinguish between real and fake assets \cite{pawlick2019game}.
 
 \paragraph{Enabling Concepts:} This strategy is underpinned by several advanced concepts:
 \begin{itemize}
-    \item \textbf{Game Theory:} Proactive deception is often modeled as a game between attacker and defender. Game-theoretic models are used to proactively calculate the optimal placement of decoys to maximize the attacker's cost or risk \cite{carroll2011game, zhu2015game, pawlick2019game}.
-    \item \textbf{Moving Target Defense (MTD):} MTD is an inherently proactive strategy where the attack surface (e.g., IP addresses, system configurations) is constantly shifted, creating "asymmetric uncertainty" for the attacker and rendering their reconnaissance data obsolete \cite{jajodia2011moving}.
-    \item \textbf{Psychological Manipulation:} As discussed in the previous section, cognitive deception is proactive by design. It involves planting "bait" or fabricating scenarios specifically engineered to trigger an attacker's cognitive biases and lead them down a pre-determined, false path \cite{ferguson2021examining}.
+    \item \textbf{Game Theory and Signaling:} Proactive deception is often modeled as a game between attacker and defender. Beyond simple placement optimization, advanced models utilize \textbf{Signaling Games}, where the defender deliberately transmits misleading signals (e.g., "Cheap Talk") to alter the attacker's belief distribution regarding the network state, forcing them into suboptimal decision-making paths \cite{pawlick2019game,carroll2011game,zhu2015game}.
+    \item \textbf{Moving Target Defense (MTD):} MTD is an inherently proactive strategy where the attack surface is constantly shifted to create "asymmetric uncertainty." Techniques include \textbf{Network Address Shuffling} (randomizing IP/MAC addresses) and \textbf{Platform Diversity} (rotating OS versions or configurations), which render the attacker's reconnaissance data obsolete moments after it is collected \cite{jajodia2011moving}.
+    \item \textbf{Psychological Manipulation:} As discussed in the previous section, cognitive deception is proactive by design. It involves planting "bait" or fabricating scenarios specifically engineered to trigger an attacker's cognitive biases (e.g., confirmation bias) and lead them down a pre-determined, false path \cite{ferguson2021examining}.
 \end{itemize}
 
-\paragraph{Limitations:} While powerful, proactive strategies introduce significant implementation challenges compared to reactive ones. First, they incur high \textbf{operational overhead and complexity}: continuous reconfiguration (as in MTD) consumes system resources and carries the risk of disrupting legitimate services or users \cite{jajodia2011moving, rowe2016introduction}. Second, strategies relying on game theory often depend on the assumption of a \textbf{rational adversary} and perfect knowledge of the attacker's incentives, which may not hold true in real-world scenarios \cite{pawlick2019game}. Finally, \textbf{measuring efficacy} is inherently difficult: unlike reactive systems that produce concrete logs of captured attacks, it is statistically challenging to quantify the attacks that were successfully deterred or diverted before execution \cite{ferguson2021examining}.
+\paragraph{Limitations:} While powerful, proactive strategies introduce significant implementation challenges compared to reactive ones. First, they incur high \textbf{operational overhead and complexity}: continuous reconfiguration (as in MTD) consumes system resources and carries the risk of disrupting legitimate services or users (availability impact) \cite{jajodia2011moving,rowe2016introduction}. Second, strategies relying on game theory often depend on the assumption of a \textbf{rational adversary} and perfect knowledge of the attacker's incentives (payoffs), which may not hold true in real-world scenarios where attackers act irrationally or with unknown goals \cite{pawlick2019game}. Finally, \textbf{measuring efficacy} is inherently difficult: unlike reactive systems that produce concrete logs of captured attacks, it is statistically challenging to quantify the attacks that were successfully deterred or diverted before execution \cite{ferguson2021examining}.
+
+To address these challenges, recent literature has increasingly focused on systematic combinations of Moving
+Target Defense and cyber deception, with the goal of maximising attacker uncertainty
+while keeping defensive costs under control. DOLOS, for example, introduces
+a unified MTD architecture that tightly integrates decoys and multi-layer
+randomisation, and evaluates its effectiveness against professional penetration
+testers \cite{dolos2023}. Other work develops explicit evaluation methods for
+hybrid MTD+deception defences, using queuing theory and evolutionary game
+theory to jointly optimise triggering strategies and the placement of deception
+resources \cite{mtddeceptionmetrics2025}. In SDN and IoT environments, it has
+been shown that dynamic randomisation of network addresses and topologies,
+combined with in-network honeypots, can preemptively disrupt scanning campaigns
+and mitigate DDoS attacks before they reach real systems \cite{mtdcd2021}.
 
 \subsubsection{The Shift to AI-Driven Proactivity}
 
-The most recent literature indicates that the frontier of proactive deception is becoming predictive and autonomous. The introduction of AI and Reinforcement Learning (RL) allows systems to be proactive not just at the design stage, but in real-time. These systems can model an attacker's behavior and \textit{predict} their next move, allowing the deception policy to adapt dynamically. RL-based systems, for example, learn optimal adaptive defense policies by treating the interaction as a stochastic game \cite{hammad2024deep}. This stands in stark contrast to the static, reactive honeypot, and is a necessary evolution to counter emerging threats that are themselves AI-driven, such as LLM-empowered penetration testing tools \cite{deng2023pentestgpt, fang2024llm}.
+The most recent literature indicates that the frontier of proactive deception is becoming predictive and autonomous. The introduction of AI and Reinforcement Learning (RL) allows systems to be proactive not just at the design stage, but in real-time. These systems can model an attacker's behavior and \textit{predict} their next move, allowing the deception policy to adapt dynamically. RL-based systems, for example, learn optimal adaptive defense policies by treating the interaction as a stochastic game, continuously updating their strategy based on live observations \cite{hammad2024deep}. This stands in stark contrast to the static, reactive honeypot, and is a necessary evolution to counter emerging threats that are themselves AI-driven, such as LLM-empowered penetration testing tools \cite{deng2023pentestgpt, fang2024llm}.
 
-This trend from reactive to proactive strategies highlights a fundamental shift in mindset: from "detecting the breach" to "managing the adversary."
+This trend from reactive to proactive strategies highlights a fundamental shift in
+mindset: from ``detecting the breach'' to ``managing the adversary.''
+
 
 \subsection{Deception Placement Timing Models}
 
-Closely related to the strategic shift from reactive to proactive deception is the evolution of \textit{when} deceptive artifacts are deployed. Our review shows a clear progression from static, design-time models to dynamic, run-time models that adapt to the adversary.
+Closely related to the strategic shift from reactive to proactive deception is the evolution of \textit{when} deceptive artifacts are deployed. The review shows a clear progression from static, design-time models to dynamic, run-time models that adapt to the adversary.
 
 \subsubsection{Static (Design-Time) Placement}
 
 The traditional model for deception placement is static, or "design-time." In this paradigm, an administrator configures the deception environment based on their assumptions about potential attackers, and the environment remains unchanged for long periods.
 
+\paragraph{Description:} This model involves the manual setup of honeypots, decoy files, or honey-tokens within a network \cite{spitzner2002honeypots,provos2004virtual}. The placement is based on static threat intelligence and network topology. From a game-theoretic perspective, this is classified as a \textbf{Static Game} (or game in strategic form), where players choose their strategies simultaneously or without observing the other's move, and the game state does not evolve during the interaction \cite{pawlick2019game}.
 
-\paragraph{Description:} This model involves the manual setup of honeypots, decoy files, or honey-tokens within a network \cite{spitzner2002honeypots, provos2004virtual}. The placement is based on static threat intelligence and network topology.
 \paragraph{Use Case:} This is the standard model for most reactive systems. The primary goal is detection, and the placement is optimized to maximize the chance of a "tripwire" being hit by a low-sophistication attacker \cite{nawrocki2016survey}.
-\paragraph{Limitations:} Static placement is predictable. Once an attacker identifies a decoy, or recognizes the "signature" of a honeypot, the entire deception environment becomes ineffective. It cannot adapt to a cautious attacker who performs slow reconnaissance.
 
+\paragraph{Limitations:} Static placement is predictable. Once an attacker identifies a decoy, or recognizes the "signature" of a honeypot, the entire deception environment becomes ineffective. It cannot adapt to a cautious attacker who performs slow reconnaissance.
 
 \subsubsection{Dynamic (Run-Time) Placement}
 
 The limitations of static placement led to the development of dynamic, or "run-time," models. In this paradigm, the deception environment is not fixed but is created, modified, or moved in response to changing network conditions or attacker actions.
 
+\paragraph{Description:} This model treats deception as a fluid resource to be actively managed. It includes a range of techniques, from pre-calculated optimal placement to real-time adaptation. Pawlick et al. categorize these interactions as \textbf{Dynamic Games} (or games in extensive form), where players observe each other's actions over time, allowing for complex behaviors like reputation building and multi-stage strategy updates \cite{pawlick2019game}.
 
-\paragraph{Description:} This model treats deception as a fluid resource to be actively managed. It includes a range of techniques, from pre-calculated optimal placement to real-time adaptation.
 \paragraph{Enabling Concepts:}
 \begin{itemize}
-    \item \textbf{Game-Theoretic Optimization:} Many proactive strategies use game theory to \textit{calculate} the optimal placement policy for decoys before an attack (a form of "optimized static placement") or to adapt the placement policy over time as the game unfolds \cite{pawlick2019game, carroll2011game, schlenker2018deceiving}.
-    \item \textbf{Moving Target Defense (MTD):} MTD is a prime example of dynamic placement. By constantly changing the attack surface (e.g., shuffling IPs, ports, or software versions), the system is \textit{continuously} re-deploying its "real" and "decoy" elements, making attacker reconnaissance data instantly obsolete \cite{jajodia2011moving}.
+    \item \textbf{Game-Theoretic Optimization:} Many proactive strategies use game theory to \textit{calculate} the optimal placement policy for decoys before an attack or to adapt the placement policy over time as the game unfolds \cite{carroll2011game,schlenker2018deceiving}. In dynamic models, the defender updates their belief system based on observed attacker moves, allowing for "Information Dynamics" where truth is revealed or concealed strategically over time \cite{pawlick2019game}.
+    \item \textbf{On-Demand Instantiation:} A practical precursor to fully adaptive AI is the "on-demand" model introduced by frameworks like \textit{Honeyd}. Rather than running permanently, virtual honeypots can be instantiated instantaneously in response to network traffic (e.g., ARP requests for unused IP addresses), populating the network map dynamically only when scanned \cite{provos2004virtual}.
+    \item \textbf{Moving Target Defense:} MTD is a prime example of dynamic placement. By constantly changing the attack surface (e.g., shuffling IPs, ports, or software versions), the system is \textit{continuously} re-deploying its "real" and "decoy" elements \cite{jajodia2011moving}. The efficacy of this timing model relies on the "validity window" of the configuration: the system must reconfigure faster than the adversary can complete their reconnaissance and exploit chain \cite{jajodia2011moving}.
     \item \textbf{Adaptive Deployment:} This is the most advanced model, where deception placement is triggered or modified in real-time by attacker behavior. For instance, an RL-based system might deploy a new, specialized honeypot in a specific subnet only after its sensors detect reconnaissance activity targeting that subnet \cite{hammad2024deep}.
 \end{itemize}
-
-
 In summary, the timing model has evolved from a one-time "set it and forget it" activity to a continuous, automated process. Modern systems aim to place deception not just where an attacker \textit{might} be, but where they \textit{are} or \textit{are about to be}, directly informed by real-time data.
 
 \subsection{Use of Attacker Profiling and Cognitive Modeling}
 
-A significant limitation of early, static deception systems was their "one-size-fits-all" nature. They were designed to catch any attacker but were not optimized for \textit{specific} attacker types (e.g., an automated bot vs. a skilled human operator). Our review reveals that a key marker of modern, advanced deception is the incorporation of attacker modeling—either explicitly through cognitive profiling or implicitly through mathematical and learning-based models.
+A significant limitation of early, static deception systems was their "one-size-fits-all" nature. They were designed to catch any attacker but were not optimized for \textit{specific} attacker types (e.g., an automated bot vs. a skilled human operator). The incorporation of attacker modeling—either explicitly through cognitive profiling or implicitly through mathematical and learning-based models—is revealed as a key marker of modern, advanced deception.
 
 \subsubsection{Explicit Cognitive Modeling}
 
 This frontier of research moves deception beyond the technical layer to target the human adversary's mind. Instead of just fooling a port scanner, the goal is to fool the human operator, exploiting their inherent cognitive biases to increase the deception's efficacy.
 
-\paragraph{Exploiting Cognitive Biases:} Research by Ferguson-Walter et al. provides a clear example of this approach. Their work examines how decoy-based deception can be enhanced by integrating principles from psychology \cite{ferguson2021examining}. For instance, a deception might be designed to exploit an attacker's \textbf{confirmation bias}, planting decoy data that confirms a false hypothesis they have formed, thus leading them deeper into a monitored environment.
-\paragraph{Goal-Oriented Deception:} Rather than just presenting a vulnerable service, a cognitive-level deception understands an attacker's likely \textit{goal} (e.g., "find the password database") and plants a high-effort, high-reward, but entirely fabricated path to that goal. This requires modeling the attacker's "semantic" understanding of the system \cite{han2018deception}.
+\paragraph{Exploiting Cognitive Biases and OODA Loop:} Research by Ferguson-Walter et al. examines how decoy-based deception can be enhanced by integrating principles from psychology \cite{ferguson2021examining}. A primary objective is to disrupt the attacker's \textbf{OODA Loop} (Observe, Orient, Decide, Act). By manipulating the "Observe" phase with false information, the system forces the attacker to "Orient" on incorrect premises, inducing hesitation and errors \cite{ferguson2021examining}. For instance, deceptions can exploit \textbf{confirmation bias} by planting data that confirms a false hypothesis, or the \textbf{decoy effect}, where the presence of a clearly inferior option influences the attacker's choice between other targets \cite{ferguson2021examining}.
+
+Beyond experimental studies on the efficacy of psychologically informed decoys,
+recent work has proposed descriptive models of attacker decision-making under
+cyber deception. One such model represents attacker choices as a function of
+five core components: belief, scepticism, deception fidelity, reconnaissance,
+and experience \cite{attackerdecision2025}. This type of modelling provides a
+conceptual foundation for designing deception campaigns that move beyond a
+``one-size-fits-all'' approach, adapting the complexity and narrative coherence
+of decoys to the cognitive and operational profile of the adversary.
+
+
+\paragraph{Goal-Oriented Deception and Suspicion Modeling:} Rather than just presenting a vulnerable service, a cognitive-level deception understands an attacker's likely \textit{goal} (e.g., "find the password database") and plants a high-effort, high-reward, but entirely fabricated path to that goal. This requires modeling the attacker's "semantic" understanding of the system \cite{han2018deception}. Furthermore, advanced models track the attacker's \textbf{level of suspicion}. As noted by Rowe, successful deception requires maintaining believability; if an attacker detects anomalies (e.g., a honey-token that is too obvious), their suspicion rises, rendering the deception ineffective. Therefore, the system must dynamically adjust the "subtlety" of the deception based on the estimated sophistication of the adversary \cite{rowe2016introduction}.
 
 \subsubsection{Implicit Modeling via Game Theory and AI}
 This second approach models the attacker not through psychology, but through their assumed rationality or observed behavior.
 
-\paragraph{Game-Theoretic Models:} The extensive use of game theory in deception research is a form of implicit attacker profiling \cite{carroll2011game, zhu2015game}. These models treat the adversary as a \textbf{rational agent} who seeks to maximize their own utility (payoff) \cite{pawlick2019game}. By modeling the attacker's potential actions and costs, the defender can compute an optimal, proactive deception policy (e.g., the best place to put a decoy) that assumes the attacker will also play rationally \cite{schlenker2018deceiving}.
-\paragraph{Behavioral-Based Learning (RL):} Adaptive systems using Reinforcement Learning (RL) perform a real-time, implicit form of profiling. The RL agent does not need to know the attacker's internal psychology; it simply observes their actions (as changes in the "state" of the environment) and learns, through trial and error, a defense policy that maximizes the defender's reward \cite{hammad2024deep}. This "policy" is, in effect, a learned model of the attacker's strategy.
+\paragraph{Game-Theoretic and Signaling Models:} The extensive use of game theory
+is a form of implicit profiling. While early models treated adversaries as perfectly
+rational, recent work incorporates \textbf{Bounded Rationality} (Quantal Response
+Equilibrium), acknowledging that attackers may make suboptimal decisions due to
+limited time or cognitive resources \cite{pawlick2019game}. A key paradigm here is
+the \textbf{Signaling Game} (or Bayesian Game with incomplete information). In this
+model, the defender (sender) transmits signals—some true, some false—to manipulate
+the \textit{belief distribution} of the attacker (receiver), maximizing the
+probability that the attacker chooses a suboptimal action based on falsified
+intelligence \cite{pawlick2019game,carroll2011game}.
+
+The signalling-game perspective has been extended in several directions. One
+line of work proposes Bayesian defence mechanisms that achieve ``asymptotic
+security'': as the defender observes more evidence, the probability of correctly
+classifying the attacker type converges to one \cite{asymptoticbayesian2023}.
+Other studies introduce signalling games with evidence, where the receiver
+has access to an imperfect detector that emits probabilistic warnings about
+possible deception. These models enable a quantitative analysis of ``leaky''
+deception and of the trade-offs between believability and coverage
+\cite{quantdeception2017,leakydeception2018}. Domain-specific Bayesian games
+have also been developed for automotive systems and wireless sensor networks,
+explicitly encoding attacker costs and resource constraints
+\cite{bayesautodeception2024,batterydeception2024}. More recent work combines
+signalling games with cognitive models and bounded rationality, yielding adaptive
+deception schemes that account for attacker cognitive biases and varying levels
+of suspicion \cite{adaptivecognitive2020,gameoftravesty2023}.
+
+
+
+\paragraph{Behavioral-Based Learning (RL):} Adaptive systems using Reinforcement Learning perform a real-time, implicit form of profiling. The RL agent observes the attacker's actions (as changes in the "state" of the environment) and learns, through trial and error, a defense policy that maximizes the defender's reward \cite{hammad2024deep}. Unlike static game-theoretic models that require pre-defined payoff matrices, RL agents can adapt to dynamic, non-stationary attacker strategies, effectively learning a custom counter-strategy for the specific threat actor currently engaging the system \cite{hammad2024deep}.
 
 The inclusion of attacker modeling, whether explicit or implicit, is what allows a deception strategy to become truly adaptive. It enables the system to move beyond generic traps and deploy tailored, dynamic interventions designed to counter a specific adversary. This capability is the direct precursor to the fully AI-orchestrated systems discussed next.
 
+
 \subsection{Role of AI, LLMs, and RL-based Deception Policies}
 
-The final and most critical finding of our review is the central role of Artificial Intelligence (AI) as the key enabler for modern deception. AI, in its various forms---primarily Reinforcement Learning (RL) and Large Language Models (LLMs)---is the technology that integrates all the previously discussed concepts. It allows deception systems to execute proactive strategies, on a dynamic timeline, informed by sophisticated attacker profiling.
+The integration of Artificial Intelligence (AI) into cybersecurity is identified as a critical evolution, characterized by the deployment of Deep Reinforcement Learning (RL) for defense and Large Language Models (LLMs) for offense.
 
-This development is largely a response to an escalating "arms race," where both attackers and defenders are leveraging AI.
+\subsubsection{AI for Defensive Orchestration: Deep Reinforcement Learning}
 
-\subsubsection{AI for Defensive Orchestration}
+On the defensive front, the literature highlights the application of Deep Reinforcement Learning (DRL) to enable adaptive cyber defense. Hammad et al. propose a framework based on \textit{Deep Q-Networks (DQN)} utilizing Experience Replay to stabilize the learning process in dynamic network environments \cite{hammad2024deep}.
 
-On the defensive side, AI is used to create autonomous "agents" that can manage and orchestrate the deception strategy in real-time, moving far beyond static honeypots.
+The interaction is formalized as a \textbf{Markov Decision Process (MDP)}, defined by the following technical components:
+\begin{itemize}
+    \item \textbf{State Space ($S$):} The agent observes the network status through a feature vector extracted from IDS alerts. This vector includes critical attributes such as Source IP, Destination IP, Protocol type, and Attack Severity, allowing the agent to distinguish between normal traffic and specific threat signatures.
+    \item \textbf{Action Space ($A$):} The agent selects from a discrete set of countermeasures. These include \textit{Block} (stopping traffic), \textit{Allow} (permitting traffic), \textit{Isolate} (quarantining a host), and crucial for deception, \textit{Redirect}, which migrates malicious traffic to a honeypot environment for analysis.
+    \item \textbf{Reward Function ($R$):} The feedback mechanism is designed to balance security and availability. The system calculates a reward based on the impact on the CIA triad (Confidentiality, Integrity, Availability). A positive reward is granted for successfully mitigating an attack (e.g., redirecting a threat), while a negative reward (penalty) is assigned for disrupting legitimate user services or failing to stop an intrusion.
+\end{itemize}
 
-\paragraph{Reinforcement Learning (RL) for Adaptive Policies:} The most prominent application is the use of Deep Reinforcement Learning (RL) to create adaptive defense policies. In this model, the defender (an RL agent) learns through interaction with the attacker (the "environment") \cite{hammad2024deep}.
+By approximating the optimal Q-value function, the DRL agent learns to select the most effective deception or mitigation strategy dynamically, adapting to new attack patterns that static rule-based systems would miss \cite{hammad2024deep}.
 
-The RL agent observes the attacker's actions (e.g., a port scan on a specific subnet) and learns, through trial-and-error, a policy that maximizes a reward (e.g., "lure the attacker to a honeypot" or "waste the attacker's time"). This allows the system to autonomously decide the \textit{best} tactic (e.g., "deploy a decoy database"), the \textit{best} strategy (proactive luring), and the \textit{best} timing (in real-time) without human intervention \cite{hammad2024deep}.
+In parallel with the use of AI for defensive orchestration, a new class of
+``generative'' honeypots based on Large Language Models has emerged. HoneyGPT
+demonstrates how an LLM can be leveraged to build highly interactive terminal
+honeypots capable of producing plausible commands, errors, and system responses,
+thus overcoming the deterministic behaviour of traditional honeypots and making
+fingerprinting significantly harder \cite{honeygpt2025}. Other works, such as
+LLM Honeypot and shelLM, generalise this approach to broader settings, using
+LLMs to orchestrate interactive shells and dynamic decoy environments that
+react in real-time to attacker behaviour \cite{llmhoneypot2024,shellm2024}.
+These solutions naturally fit into the evolutionary trajectory from static to
+adaptive and predictive systems, and suggest that generative models will become
+a core component of future cyber deception platforms.
 
-\paragraph{Predictive Deception:} By modeling attacker behavior, these AI-driven systems move from being merely proactive to being \textbf{predictive}. They can anticipate an attacker's next move and pre-emptively place deceptive artifacts in their path.
 
-\subsubsection{AI as the Offensive Threat}
+\subsubsection{AI as the Offensive Threat: LLMs and Agents}
 
-A key driver for this defensive evolution is the simultaneous adoption of AI by adversaries. The static, predictable traps of the past are insufficient against attackers who are themselves AI-driven.
+Simultaneously, the offensive landscape has been transformed by the capabilities of Large Language Models (LLMs), which are now capable of automating complex intrusion tasks through advanced memory and reasoning structures.
 
+\paragraph{Automated Penetration Testing (PentestGPT):}
+Deng et al. introduce \textbf{PentestGPT}, a tool designed to solve the challenge of "context loss" in LLMs during prolonged testing sessions. Beyond its modular architecture (Reasoning, Generation, Parsing), the core innovation is the \textbf{Pentesting Task Tree (PTT)} \cite{deng2023pentestgpt}.
+The PTT is a structured data object that maintains the hierarchical status of the testing session. It tracks high-level goals (roots) and breaks them down into sub-tasks (leaves), allowing the \textit{Reasoning Module} to maintain "test status awareness" over time. This architecture enables the model to verify findings, backtrack when a path fails, and explore alternatives, achieving a 228\% performance improvement over baseline GPT-4 in testing scenarios like HackTheBox.
 
-\paragraph{LLMs for Attack Automation (PentestGPT):} Recent research demonstrates the power of LLMs in automating complex penetration testing tasks. Tools like PentestGPT show that an LLM can interpret tool outputs, reason about the attack path, and decide the next steps, effectively automating the \textit{cognitive} work of a human hacker \cite{deng2023pentestgpt}.
+\paragraph{Autonomous Exploitation of One-Day Vulnerabilities:}
+Moving from assistance to autonomy, Fang et al. demonstrate \textit{LLM Agents} capable of exploiting "one-day" vulnerabilities. These agents utilize a \textbf{ReAct (Reason + Act)} framework to interact with tools such as file system explorers, code readers, and web browsers \cite{fang2024llm}.
+Crucially, these agents leverage \textbf{patch diffing}: when provided with a vulnerability description (CVE), they can analyze the difference between the patched and unpatched code to identify the exploitable logic. The study reports that these agents successfully exploited 87\% of the tested real-world critical vulnerabilities. Furthermore, the cost-efficiency is significant: the per-exploit cost is estimated at approximately \$0.48 (using GPT-4), which is orders of magnitude lower than the cost of a human expert, signaling a democratization of sophisticated cyber-offense capabilities \cite{fang2024llm}.
 
-\paragraph{Autonomous LLM Agents (One-Day Exploits):} Even more advanced research shows that fully autonomous LLM agents can independently discover and exploit "one-day" vulnerabilities (vulnerabilities for which a patch exists but is not yet widely applied) given only a CVE description \cite{fang2024llm}.
-
-
-This offensive capability signifies that modern deception systems must be designed to fool not just human operators, but sophisticated, autonomous AI agents. A static honeypot is trivial for such an agent to identify, whereas an adaptive, RL-driven deception environment creates a dynamic, unpredictable, and challenging target.
-
-In conclusion, the role of AI is twofold: it is both the primary \textbf{enabling technology} for adaptive, predictive deception and the primary \textbf{offensive threat} that makes this evolution a necessity.
+Beyond classical strategic modelling, several works explicitly target zero-day
+attacks and advanced adversaries. Game-theoretic models for the optimal allocation
+of honeypots to protect high-value assets show that well-designed deception
+strategies can substantially reduce the probability that a zero-day adversary
+reaches its goal \cite{zerodaydeception2023}. This line of work directly connects
+to the emerging challenge of confronting autonomous, LLM-based attackers:
+in such scenarios, deception must be engineered not only to exploit human
+biases, but also to perturb automated inference and planning processes in AI
+agents \cite{gameoftravesty2023,shieldapt2025}.
