@@ -1,19 +1,55 @@
 \section{Conclusion}
 
-This Systematic Literature Review set out to answer the following research question: \textit{"What are the dominant paradigms, open challenges, and emerging research directions in cyber deception, particularly in the shift from static/reactive honeypots to adaptive, AI-driven and predictive deception systems?"}
+This Systematic Literature Review set out to answer the following research question:
+\textit{``What are the dominant paradigms, open challenges, and emerging research
+    directions in cyber deception, particularly in the shift from static/reactive
+    honeypots to adaptive, AI-driven and predictive deception systems?''}
 
-The analysis of the literature confirms that the field of cyber deception has undergone a profound evolution. The dominant paradigm has decisively shifted from passive detection to proactive, intelligent adversary engagement.
+The analysis of the literature confirms that the field of cyber deception has
+undergone a profound evolution. The dominant paradigm has decisively shifted from
+passive detection to proactive, intelligent adversary engagement.
 
 The evolutionary path is clear and can be mapped through three distinct phases:
 
 \begin{enumerate}
-    \item \textbf{The Static Phase:} The discipline's foundations were built on \textbf{honeypots}—security resources designed to be probed and attacked \cite{spitzner2002honeypots}. Early frameworks like \textit{Honeyd} allowed for the virtualization of networks \cite{provos2004virtual}, but these systems remained largely static and reactive. As noted by Nawrocki et al., their primary value lay in forensics and signature generation, but they lacked the ability to adapt to an adversary's changing tactics during an engagement \cite{nawrocki2016survey}.
+    \item \textbf{The Static Phase:} The discipline's foundations were built on
+          \textbf{honeypots}—security resources designed to be probed and attacked
+          \cite{spitzner2002honeypots}. Early frameworks like \textit{Honeyd} allowed for
+          the virtualization of networks \cite{provos2004virtual}, but these systems
+          remained largely static and reactive. As noted by Nawrocki et al., their primary
+          value lay in forensics and signature generation, but they lacked the ability to
+          adapt to an adversary's changing tactics during an engagement
+          \cite{nawrocki2016survey}.
 
-    \item \textbf{The Formalization and Proactive Phase:} To overcome static limitations, the field moved toward formal taxonomies and active strategies. Han et al. structured deception into \textbf{simulation} (showing the false) and \textbf{dissimulation} (hiding the real) \cite{han2018deception}, while Pawlick et al. introduced \textbf{Game Theory} to model the interaction. This era shifted the focus to manipulating the attacker's belief state through signaling games \cite{pawlick2019game} and exploiting human cognitive biases—such as disrupting the OODA loop—to induce errors \cite{ferguson2021examining}.
+    \item \textbf{The Formalization and Proactive Phase:} To overcome static
+          limitations, the field moved toward formal taxonomies and active strategies.
+          Han et al. structured deception into \textbf{simulation} (showing the false) and
+          \textbf{dissimulation} (hiding the real) \cite{han2018deception}, while Pawlick
+          et al. introduced \textbf{Game Theory} to model the interaction. This era shifted
+          the focus to manipulating the attacker's belief state through signaling games
+          \cite{pawlick2019game} and exploiting human cognitive biases—such as disrupting
+          the OODA loop—to induce errors \cite{ferguson2021examining}.
 
-    \item \textbf{The AI-Driven Adaptive Phase:} Today, the field is defined by an escalating "arms race." The most dominant emerging paradigm is \textbf{AI-driven adaptive deception}. As demonstrated by Hammad et al., modern defenses utilize Deep Reinforcement Learning (DRL) modeled as Markov Decision Processes (MDP) to learn optimal defense policies in real-time \cite{hammad2024deep}. These systems do not rely on static rules but dynamically optimize rewards based on the CIA triad, offering a self-healing network capability \cite{hammad2024deep}.
+    \item \textbf{The AI-Driven Adaptive Phase:} Today, the field is defined by an
+          escalating ``arms race.'' The most dominant emerging paradigm is
+          \textbf{AI-driven adaptive deception}. As demonstrated by Hammad et al., modern
+          defenses utilize Deep Reinforcement Learning (DRL) modeled as Markov Decision
+          Processes (MDP) to learn optimal defense policies in real-time
+          \cite{hammad2024deep}. These systems do not rely on static rules but dynamically
+          optimize rewards based on the CIA triad, offering adaptive, real-time optimization
+          capabilities \cite{hammad2024deep}
+
 \end{enumerate}
 
-This final evolution is a direct and necessary response to the emergence of \textbf{AI-powered adversaries}. The literature reveals that attackers now leverage LLMs, like PentestGPT, to maintain context during attacks \cite{deng2023pentestgpt} and autonomous agents capable of exploiting one-day vulnerabilities via patch diffing at negligible costs \cite{fang2024llm}.
+This final evolution is a direct and necessary response to the emergence of
+\textbf{AI-powered adversaries}. The literature reveals that attackers now leverage
+LLMs, like PentestGPT, to maintain context during attacks \cite{deng2023pentestgpt}
+and autonomous agents capable of exploiting one-day vulnerabilities via patch
+diffing at negligible costs \cite{fang2024llm}.
 
-This review concludes that the era of passive cyber defense is over. The significant open challenges now lie in engineering systems capable of deceiving these autonomous AI agents. Future research must move beyond fooling human biases to designing "AI-native" deceptions that can poison the reasoning logic of LLM-driven threats. The future of deception lies in creating intelligent, adaptive systems that can "play the game" as actively and autonomously as the adversaries they face.
+This review concludes that the era of passive cyber defense is over. The significant
+open challenges now lie in engineering systems capable of deceiving these autonomous
+AI agents. Future research must move beyond fooling human biases to designing
+``AI-native'' deceptions that can poison the reasoning logic of LLM-driven threats.
+The future of deception lies in creating intelligent, adaptive systems that can
+``play the game'' as actively and autonomously as the adversaries they face.

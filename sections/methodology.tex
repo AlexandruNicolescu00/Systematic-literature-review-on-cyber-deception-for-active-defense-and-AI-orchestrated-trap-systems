@@ -26,6 +26,12 @@ the basis of this review.
             either \textit{low-interaction} (emulating services) or \textit{high-interaction}
             (providing real operating systems) \cite{provos2004virtual,nawrocki2016survey}.
 
+      \item[Honey-Token]
+            A deceptive data artifact (e.g., fake credentials, API keys, database entries)
+            placed on a system to detect unauthorized access when exfiltrated or accessed.
+            Any use of a honey-token triggers an alert, enabling early detection of
+            compromises \cite{nawrocki2016survey}.
+
 
       \item[Active Defense]
             This term refers to a proactive cybersecurity doctrine that contrasts with
@@ -47,8 +53,12 @@ the basis of this review.
             model the strategic interaction between a rational attacker and a defender.
             In this context, deception is viewed as a game where the defender attempts
             to optimize their payoff by predicting the attacker's moves based on their
-            incentives and available information
-            \cite{carroll2011game,zhu2015game,pawlick2019game}.
+            incentives and available information.
+            \cite{carroll2011game,zhu2015game,pawlick2019game}. In particular,
+            \textbf{Signaling Games}---where one player transmits signals that influence
+            another player's beliefs---have become central to modeling deceptive
+            interactions \cite{pawlick2019game}.
+
 
 
       \item[Adaptive Deception]
