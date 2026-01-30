@@ -1,0 +1,124 @@
+\section{Research Methodology and Selection Criteria}
+To address the research question regarding the evolution of cyber deception from static honeypots to AI-driven systems,
+this study adopts a systematic approach to literature selection.
+The review process was guided by strict inclusion criteria and a rigorous quality assessment strategy to balance foundational
+authority with cutting-edge relevance.
+
+\subsection{Search Strategy and Scope}
+The literature search was primarily conducted using the Google Scholar database,
+which serves as a comprehensive index for major academic repositories including IEEE Xplore,
+ACM Digital Library, and USENIX Association proceedings. The search strings combined core terms such as ``Cyber Deception'',
+``Honeypots'', and ``Moving Target Defense'' with emerging keywords like ``Reinforcement Learning'', ``LLM'', ``Generative AI'',
+and ``Game Theory''. The time window spans from foundational works (2002) to the most recent developments (early 2025).
+\subsection{Inclusion and Exclusion Criteria}
+The selection process applied the following criteria:
+\begin{itemize}
+      \item \textbf{Inclusion Criteria:}
+            \begin{itemize}
+                  \item Papers proposing novel deception architectures, taxonomies, or evaluation metrics.
+                  \item Studies explicitly integrating AI, Game Theory, or Cognitive Psychology into deception strategies.
+                  \item Recent experimental reports on Large Language Models (LLMs) used for both offensive
+                        and defensive deception purposes.
+            \end{itemize}
+      \item \textbf{Exclusion Criteria:}
+            \begin{itemize}
+                  \item Papers lacking technical implementation details or theoretical depth.
+                  \item Duplicate studies or minor variations of previously published works.
+                  \item Sources not written in English.
+            \end{itemize}
+\end{itemize}
+
+\subsection{Source Quality Assessment and Hierarchy}
+In response to the rapid pace of innovation in this domain, this review incorporates sources across three distinct quality tiers,
+applying different levels of critical scrutiny to each:
+
+\begin{enumerate}
+      \item \textbf{Tier 1: Foundational and Top-Tier Venues (Gold Standard).} \\
+            Core concepts and definitions are derived exclusively from high-impact journals
+            \footnote{Journal impact metrics verified via LetPub Journal Selector: \url{https://apa.letpub.com/journal-selector}}
+            and top-tier conferences (CORE A*/A)
+            \footnote{Conference rankings verified via the CORE Conference Portal: \url{https://portal.core.edu.au/conf-ranks/}}.
+            These include \textit{USENIX Security} for seminal honeypot frameworks and cognitive efficacy studies,
+            \textit{ACM Computing Surveys} for taxonomic definitions, and \textit{IEEE Transactions on Information Forensics and Security
+                  (TIFS)} for validated defensive architectures. These sources are treated as the authoritative baseline for this review.
+
+      \item \textbf{Tier 2: Emerging Research and Pre-prints.} \\
+            Given the explosive growth of Generative AI in 2023-2025, traditional peer-review cycles often lag behind current threats.
+            Consequently, this review includes recent pre-prints (e.g., arXiv) specifically to cover LLM-driven threats
+            and generative honeypots. These sources are identified as preliminary and are evaluated based on their experimental
+            reproducibility rather than peer-review status.
+
+      \item \textbf{Tier 3: Specialized and Contextual Contributions.} \\
+            Selected works from lower-ranked venues or broad-scope journals are included only when they provide specific artifacts
+            not available elsewhere. The contributions from these sources are critically analyzed
+            and cross-referenced with higher-tier literature to mitigate potential validity concerns.
+\end{enumerate}
+
+\subsection{Limitations}
+It is acknowledged that the inclusion of non-peer-reviewed pre-prints and Tier 3 sources introduces a risk of lower rigor.
+To mitigate this, findings from these sources are presented as ``emerging trends''
+or ``proposed methods'' rather than consolidated facts, pending further validation by the community.
+
+\begin{landscape}
+      \subsection{Table of Reviewed Papers}
+      \footnotesize % Riduce il font per far entrare tutto nella pagina
+
+      \begin{longtable}{|p{0.6cm}|p{0.8cm}|p{2.6cm}|p{2.2cm}|p{2.8cm}|p{2.5cm}|p{2cm}|p{2.5cm}|p{2.8cm}|p{3.8cm}|}
+            \caption{Systematic Literature Review Summary Table} \label{tab:slr_summary}                                                                                                                                                                                                                                                    \\
+            \hline
+            \textbf{Ref}                  & \textbf{Year} & \textbf{Domain}          & \textbf{Layer}      & \textbf{Strategy}             & \textbf{Threat Model}       & \textbf{AI/ML}          & \textbf{Eval. Setup}       & \textbf{Key Metrics}                                             & \textbf{Conference/Journal}            \\
+            \hline
+            \endfirsthead
+
+            \multicolumn{10}{c}%
+            {{\bfseries \tablename\ \thetable{} -- continued from previous page}}                                                                                                                                                                                                                                                           \\
+            \hline
+            \textbf{Ref}                  & \textbf{Year} & \textbf{Domain}          & \textbf{Layer}      & \textbf{Strategy}             & \textbf{Threat Model}       & \textbf{AI/ML}          & \textbf{Eval. Setup}       & \textbf{Key Metrics}                                             & \textbf{Conference/Journal}            \\
+            \hline
+            \endhead
+
+            \hline \multicolumn{10}{|r|}{{Continued on next page}}                                                                                                                                                                                                                                                                          \\ \hline
+            \endfoot
+
+            \hline \hline
+            \endlastfoot
+
+            % --- START OF DATA ---
+            \cite{rowe2016introduction}   & 2016          & General CYDEC            & All                 & Taxonomy, Proactive, Reactive & General                     & N/A                     & Conceptual Framework       & N/A                                                              & Springer Book                          \\ \hline
+            \cite{cohen2006use}           & 2006          & Honeypots                & Host, Network, Data & Reactive                      & Human                       & N/A                     & Survey                     & Attacker Cost                                                    & Handbook of InfoSec                    \\ \hline
+            \cite{spitzner2002honeypots}  & 2002          & Honeypots                & Host, Network       & Reactive                      & Human                       & N/A                     & Conceptual                 & N/A                                                              & Addison-Wesley (Book)                  \\ \hline
+            \cite{provos2004virtual}      & 2004          & Network                  & Network             & Reactive                      & Human, Worm                 & N/A                     & Implementation             & Scalability, Fidelity                                            & \textbf{USENIX Security}               \\ \hline
+            \cite{nawrocki2016survey}     & 2016          & Honeypots                & Host, Data          & Reactive                      & Malware, Human              & ML                      & Survey                     & N/A                                                              & arXiv (Pre-print)                      \\ \hline
+            \cite{han2018deception}       & 2018          & General CYDEC            & All                 & Taxonomy                      & General                     & N/A                     & Survey                     & N/A                                                              & \textbf{ACM CSUR}                      \\ \hline
+            \cite{carroll2011game}        & 2011          & Network                  & Game Theory         & Proactive                     & Rational Attacker           & Game Theory             & Simulation                 & Payoff, Utility                                                  & Security and Communication Network     \\ \hline
+            \cite{schlenker2018deceiving} & 2018          & Network                  & Game Theory         & Proactive                     & Rational Attacker           & Game Theory             & Simulation                 & Strong Stackelberg Equilibrium                                   & AAMAS Conf.                            \\ \hline
+            \cite{ferguson2021examining}  & 2021          & Cognitive                & Cognitive           & Proactive                     & Human                       & N/A                     & Human Subj. Exp.           & Time, Success Rate                                               & \textbf{USENIX Security}               \\ \hline
+            \cite{deng2023pentestgpt}     & 2023          & Offensive                & N/A                 & Attack (Pentest)              & LLM vs. Target              & LLM (GPT-4)             & HackTheBox                 & Success Rate, Cost                                               & arXiv (Pre-print)                      \\ \hline
+            \cite{fang2024llm}            & 2024          & Offensive                & N/A                 & Attack (1-Day)                & LLM Agents                  & LLM (ReAct)             & Real-world CVEs            & Success Rate, Cost                                               & arXiv (Pre-print)                      \\ \hline
+            \cite{hammad2024deep}         & 2024          & Network                  & Network, Host       & Adaptive                      & General Threats             & DRL (DQN, PPO)          & NSL-KDD Dataset            & Accuracy, Precision, Recall, F1-Score                            & AICCONF                                \\ \hline
+            \cite{pawlick2019game}        & 2019          & General                  & Game Theory         & Proactive                     & Rational                    & Game Theory             & Survey                     & N/A                                                              & \textbf{ACM CSUR}                      \\ \hline
+            \cite{jajodia2011moving}      & 2011          & General                  & Network, System     & Proactive                     & General                     & N/A                     & Book                       & Attacker Cost                                                    & Springer Book                          \\ \hline
+            \cite{zhu2015game}            & 2015          & Cyber Physical Systems   & Control             & Proactive                     & Rational Attacker           & Game Theory             & Analytical                 & System Robustness                                                & IEEE Control Sys.                      \\ \hline
+            \cite{aiipot2023}             & 2023          & IoT                      & Host (IoT)          & Adaptive                      & IoT Malware                 & RL                      & Testbed                    & Session Duration                                                 & IEEE PIMRC                             \\ \hline
+            \cite{honeydoc2019}           & 2019          & Network                  & Net/Host            & Proactive                     & General                     & N/A                     & Testbed                    & Resource Overhead, Deployment Time, Throughput                   & \textbf{IEEE JSAC}                     \\ \hline
+            \cite{iotflowgenerator2023}   & 2023          & IoT                      & Network             & Proactive                     & Reconnaissance              & Generative Model        & Simulation                 & Fingerprint Accuracy                                             & arXiv (Pre-print)                      \\ \hline
+            % dolos [19]
+            \cite{dolos2023}              & 2023          & Enterprise Network       & Network (MTD)       & Proactive                     & Pentesters                  & N/A                     & Human Exp.                 & Success Rate                                                     & \textbf{IEEE TIFS}                     \\ \hline
+            \cite{attackerdecision2025}   & 2025          & Network                  & Network, Host       & Proactive, Reactive           & Multi stage Attacker        & Game Theory             & Analytical                 & Defensive Effectiveness                                          & arXiv (Pre-print)                      \\ \hline
+            \cite{asymptoticbayesian2023} & 2024          & Cyber Physical Systems   & Information         & Proactive                     & Rational Attacker           & Bayesian Learning       & Numerical Simulation       & Belief Convergence                                               & IEEE Transactions on Automatic Control \\ \hline
+            \cite{quantdeception2017}     & 2017          & Network                  & Game Theory         & Proactive                     & Rational Attacker           & Game Theory             & Simulation                 & Belief Convergence                                               & IEEE CNS                               \\ \hline
+            \cite{leakydeception2018}     & 2019          & Network                  & Game Theory         & Proactive                     & Rational Attacker           & Game Theory             & Numerical Simulation       & Detector Accuracy                                                & \textbf{IEEE TIFS}                     \\ \hline
+            \cite{bayesautodeception2024} & 2024          & Automotive               & System              & Proactive                     & Remote Attacker             & Game Theory             & Numerical Simulation       & Attacker Belief Update                                           & IEEE ICNC                              \\ \hline
+            \cite{batterydeception2024}   & 2025          & Wireless Sensor Networks & Signaling           & Proactive                     & Drain DoS Attacks           & Game Theory             & Numerical Simulation       & Expected Utility                                                 & IEEE Access                            \\ \hline
+            \cite{adaptivecognitive2020}  & 2020          & Network                  & Strategic           & Adaptive                      & Human                       & Cognitive Model         & Human Subj. Exp.           & Probability of Attack                                            & Hawaii                                 \\ \hline
+            \cite{gameoftravesty2023}     & 2023          & Network                  & Strategic           & Proactive                     & Human                       & Game Theory             & Numerical Simulation       & ROC Curves                                                       & arXiv (Pre-print)                      \\ \hline
+            \cite{honeygpt2025}           & 2025          & Network                  & Host                & Proactive, Adaptive           & General                     & LLM                     & Field Experiment           & Interaction Depth                                                & arXiv (Pre-print)                      \\ \hline
+            \cite{llmhoneypot2024}        & 2024          & Network                  & Host                & Proactive                     & General                     & LLM                     & Live Deployment Simulation & Cosine Similarity, Jaro-Winkler Similarity, Levenshtein Distance & IEEE CNS                               \\ \hline
+            \cite{shellm2024}             & 2024          & Software                 & N/A                 & Reactive                      & CWEs                        & LLM, RL                 & Dataset Experiment         & Repair Success Rate                                              & IEEE EuroS\&PW                         \\ \hline
+            \cite{zerodaydeception2023}   & 2023          & Network                  & Network             & Proactive                     & Zero-Day                    & Game Theory             & Numerical Simulation       & Capture Proportion                                               & arXiv (Pre-print)                      \\ \hline
+            \cite{shieldapt2025}          & 2025          & Network                  & N/A                 & Reactive                      & Advanced Persistent Threats & LLM                     & Provenance Datasets        & Precision, Recall, F1-Score, Alert Fatigue Reduction             & arXiv (Pre-print)                      \\ \hline
+            \cite{deceptiontrends2024}    & 2024          & General CYDEC            & All                 & Taxonomy                      & General                     & AI vs Non-AI Comparison & SLR                        & Technological Readiness Level                                    & arXiv (Pre-print)                      \\ \hline
+            \cite{sgfingerprint2023}      & 2023          & Smart Grid               & Digital Twin        & Taxonomy                      & Fingerprinting              & N/A                     & Testbed                    & Taxonomy Compliance                                              & IEEE SmartGridComm                     \\ \hline
+            \cite{otfingerprint2025}      & 2025          & Operational Technology   & Network, Protocol   & Detection                     & Fingerprinting              & N/A                     & Internet-wide Scan         & Identification Count                                             & IEE  E TMA                             \\ \hline
+      \end{longtable}
+\end{landscape}

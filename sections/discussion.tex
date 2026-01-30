@@ -17,25 +17,105 @@ research are identified.
 
 \subsection{Future Challenges and Open Research Questions}
 
-This review identifies six critical open challenges that emerge from the evolutionary trajectory of cyber deception. This section consolidates observations from recent literature and synthesizes them into three broader themes: the development of next-generation deception capabilities, the achievement of system integration and comprehensive coverage, and the practical operationalization of AI-driven techniques at scale.
+This review identifies six critical open challenges that emerge from the evolutionary trajectory of cyber deception.
+This section consolidates observations from recent literature and synthesizes them into three broader themes: the development
+of next-generation deception capabilities, the achievement of system integration and comprehensive coverage, and the practical
+operationalization of AI-driven techniques at scale.
 \paragraph{Missing Capabilities: Predictive, Intent-Aware, and Domain-Specific Deception.}
-The literature analysis reveals three critical gaps that define the frontier of next-generation deception systems. First, \textbf{predictive deception} remains largely aspirational: while current RL-based systems adapt policies in real-time based on observed attacker actions \cite{hammad2024deep}, truly predictive systems that anticipate attacker intent before reconnaissance or exploit attempts are still missing. Beltrán López et al. explicitly note that the ability to ``anticipate and counter cyberattacks'' and ``adjust security strategies proactively'' based on predicted attacker behavior is a stated goal of CYDEC, yet few practical implementations exist beyond reactive detection \cite{deceptiontrends2024}. The challenge lies in developing models that can learn from historical attack patterns, integrate threat intelligence feeds, and predict not just \textit{what} an attacker will do, but \textit{when} and \textit{where} they will do it, enabling preemptive placement of deception artifacts in the adversary's projected path.
+The literature analysis reveals three critical gaps that define the frontier of next-generation deception systems.
+First, \textbf{predictive deception} remains largely aspirational: while current RL-based systems adapt policies in
+real-time based on observed attacker actions \cite{hammad2024deep}, truly predictive systems that anticipate attacker
+intent before reconnaissance or exploit attempts are still missing. Beltrán López et al. explicitly note that the
+ability to ``anticipate and counter cyberattacks'' and ``adjust security strategies proactively'' based on predicted
+attacker behavior is a stated goal of cyber deception (CYDEC), yet few practical implementations exist beyond reactive
+detection \cite{deceptiontrends2024}. The challenge lies in developing models that can learn from historical attack
+patterns, integrate threat intelligence feeds, and predict not just \textit{what} an attacker will do,
+but \textit{when} and \textit{where} they will do it, enabling preemptive placement of deception artifacts
+in the adversary's projected path.
 
-Second, \textbf{intent-aware deception} is identified as a key frontier in cognitive-level research. As discussed in \ref{cognitive modeling}, current systems begin to model attacker goals and suspicion levels \cite{rowe2016introduction,ferguson2021examining,attackerdecision2025}, but most remain generic. Beltrán López et al. highlight that existing taxonomies distinguish between strategy (attack vs. defense), dimension (data, network, system, software), and phase (MITRE ATT\&CK stages, defense lifecycle), yet the operationalization of \textit{adaptive narratives} tailored to specific attacker profiles is largely missing \cite{deceptiontrends2024}. True intent-aware systems must go beyond static decoy placement to dynamically construct multi-layered, context-sensitive false narratives that evolve in response to inferred attacker objectives—e.g., distinguishing between an APT seeking intellectual property exfiltration and an opportunistic botnet operator seeking computational resources—and deploying specialized deception environments accordingly.
+Second, \textbf{intent-aware deception} is identified as a key frontier in cognitive-level research.
+As discussed in \ref{cognitive modeling}, current systems begin to model attacker goals and suspicion
+levels \cite{rowe2016introduction,ferguson2021examining,attackerdecision2025}, but most remain generic.
+Beltrán López et al. highlight that existing taxonomies distinguish between strategy (attack vs. defense),
+dimension (data, network, system, software), and phase (MITRE ATT\&CK stages, defense lifecycle), yet the
+operationalization of \textit{adaptive narratives} tailored to specific attacker profiles is largely
+missing \cite{deceptiontrends2024}. True intent-aware systems must go beyond static decoy placement to dynamically
+construct multi-layered, context-sensitive false narratives that evolve in response to inferred attacker objectives—e.g.,
+distinguishing between an APT seeking intellectual property exfiltration and an opportunistic botnet operator
+seeking computational resources—and deploying specialized deception environments accordingly.
 
-Third, the literature exhibits a pronounced lack of \textbf{domain-specific, production-ready deception frameworks for critical infrastructures}, particularly Industrial Control Systems (ICS) and Operational Technology (OT) environments. While Beltrán López et al. identify ICS as a recognized use case and document honeypot proposals for SCADA systems \cite{deceptiontrends2024}, the survey also reveals that most solutions remain at low to medium Technological Readiness Levels (TRL 2--3), with few reaching deployment-grade maturity (TRL 7+) \cite{deceptiontrends2024}. ICS environments demand specialized deception that respects real-time operational constraints, accurately models industrial protocols (e.g., Modbus, DNP3), and avoids interference with safety-critical processes. The gap is not merely technical—it involves domain expertise, integration with legacy systems, and compliance with industrial safety standards. As noted in recent fingerprinting studies, generic honeypots are easily detected in specialized environments \cite{sgfingerprint2023,otfingerprint2025}, underscoring the need for high-fidelity, domain-native deception tailored to ICS/OT threat models. Addressing this gap requires closer collaboration between cybersecurity researchers, industrial engineers, and operators to co-design deception systems that are operationally viable and resilient to domain-specific fingerprinting.
+Third, the literature exhibits a pronounced lack of \textbf{domain-specific, production-ready deception frameworks
+    for critical infrastructures}, particularly Industrial Control Systems (ICS) and Operational Technology (OT)
+environments. While Beltrán López et al. identify ICS as a recognized use case and document honeypot proposals
+for SCADA systems \cite{deceptiontrends2024}, the survey also reveals that most solutions remain at low to medium
+Technological Readiness Levels (TRL 2--3), with few reaching deployment-grade maturity (TRL 7+) \cite{deceptiontrends2024}.
+ICS environments demand specialized deception that respects real-time operational constraints, accurately models
+industrial protocols (e.g., Modbus, DNP3), and avoids interference with safety-critical processes. The gap is not
+merely technical—it involves domain expertise, integration with legacy systems, and compliance with industrial safety
+standards. As noted in recent fingerprinting studies, generic honeypots are easily detected in specialized
+environments \cite{sgfingerprint2023,otfingerprint2025}, underscoring the need for high-fidelity, domain-native
+deception tailored to ICS/OT threat models. Addressing this gap requires closer collaboration between cybersecurity researchers,
+industrial engineers, and operators to co-design deception systems that are operationally viable and resilient to domain-specific
+fingerprinting.
 
 \paragraph{Fragmentation of Techniques and Lack of Integrated Frameworks.}
-Beltrán López et al.\ identify a strong tendency for CYDEC mechanisms to be designed and evaluated in isolation, often focusing on a single tactic (e.g., a specific Honey-X variant) or a narrow dimension (e.g., network-only deception), with limited coordination across layers, phases, or use cases \cite{deceptiontrends2024}. Their taxonomy and framework survey show that most existing architectures implement only a subset of the dimensions (Data, Network, System, Software) and phases (Prevention, Detection, Reaction, Forensic), and that coordinated orchestration of multiple deception techniques remains rare \cite{deceptiontrends2024}. This fragmentation mirrors earlier observations in framework-specific work, where SDN-based, IoT-specific, or ICS-focused designs cover only selected environments or threat types \cite{dolos2023,hammad2024deep,aiipot2023}. A key open challenge, therefore, is the design of \emph{truly integrated} deception platforms that combine heterogeneous tactics (Honey-X, MTD, obfuscation, redirection, perturbation) across multiple dimensions and phases, while remaining manageable in realistic deployments \cite{deceptiontrends2024}.
+Beltrán López et al.\ identify a strong tendency for CYDEC mechanisms to be designed and evaluated in isolation,
+often focusing on a single tactic (e.g., a specific Honey-X variant) or a narrow dimension (e.g., network-only deception),
+with limited coordination across layers, phases, or use cases \cite{deceptiontrends2024}. Their taxonomy and framework survey
+show that most existing architectures implement only a subset of the dimensions (Data, Network, System, Software) and
+phases (Prevention, Detection, Reaction, Forensic), and that coordinated orchestration of multiple deception techniques
+remains rare \cite{deceptiontrends2024}. This fragmentation mirrors earlier observations in framework-specific work,
+where SDN-based, IoT-specific, or ICS-focused designs cover only selected environments or threat types
+\cite{dolos2023,hammad2024deep,aiipot2023}. A key open challenge, therefore, is the design of \emph{truly integrated} deception
+platforms that combine heterogeneous tactics (Honey-X, MTD, obfuscation, redirection, perturbation) across multiple
+dimensions and phases, while remaining manageable in realistic deployments \cite{deceptiontrends2024}.
 
 \paragraph{Standardized Metrics and Comparative Evaluation.}
-A central contribution of Beltrán López et al.\ is the explicit identification of the \emph{metrics problem}: existing works use highly heterogeneous, often ad hoc criteria (number of captured attacks, malware samples, false positives, etc.), which makes systematic comparison nearly impossible \cite{deceptiontrends2024}. This aligns with earlier observations in game-theoretic and RL-based work, where payoffs, utilities, and reward functions are defined in a study-specific manner \cite{pawlick2019game,hammad2024deep}. The absence of standardized, widely accepted metrics prevents the community from answering basic questions such as “which deception strategy is more effective under given constraints?” or “what is the real operational benefit of adding MTD or cognitive tactics?” \cite{deceptiontrends2024}. Future research is thus called to (i) derive common evaluation dimensions (e.g., attacker cost, defender utility, resilience over time), (ii) develop benchmark scenarios and datasets, and (iii) align quantitative measures used in CYDEC with those emerging from broader security engineering and cyber-risk assessment literature \cite{deceptiontrends2024,pawlick2019game}.
+A central contribution of Beltrán López et al.\ is the explicit identification of the \emph{metrics problem}:
+existing works use highly heterogeneous, often ad hoc criteria (number of captured attacks, malware samples, false positives, etc.),
+which makes systematic comparison nearly impossible \cite{deceptiontrends2024}. This aligns with earlier observations
+in game-theoretic and RL-based work, where payoffs, utilities, and reward functions are defined in a study-specific manner
+\cite{pawlick2019game,hammad2024deep}. The absence of standardized, widely accepted metrics prevents the community from answering
+basic questions such as “which deception strategy is more effective under given constraints?” or “what is the real operational benefit
+of adding MTD or cognitive tactics?” \cite{deceptiontrends2024}. Future research is thus called to (i) derive common evaluation
+dimensions (e.g., attacker cost, defender utility, resilience over time), (ii) develop benchmark scenarios and datasets, and (iii) align
+quantitative measures used in CYDEC with those emerging from broader security engineering and cyber-risk assessment literature
+\cite{deceptiontrends2024,pawlick2019game}.
 
 \paragraph{Coverage Gaps in Dimensions, Phases, and Use Cases.}
-The 2024 survey systematically maps deception mechanisms against dimensions (Data, Network, System, Software), defense phases (Prevention, Detection, Reaction, Forensic), and application scenarios (IoT, Cloud, ICS, Enterprise, Military) \cite{deceptiontrends2024}. This mapping reveals several coverage gaps. First, many solutions remain network-centric and underutilize data- and software-level deception, despite their potential for high-fidelity traps (e.g., honey-data, application-layer perturbations) \cite{deceptiontrends2024}. Second, the \emph{forensic} phase is comparatively neglected: while deception is widely used for detection and reaction, few works exploit deception-generated telemetry systematically for post-incident analysis and long-term improvement of defenses \cite{deceptiontrends2024,nawrocki2016survey}. Third, several high-impact scenarios (e.g., large enterprise environments or cross-domain infrastructures) still lack generic, reusable frameworks; most proposals are tightly tailored to specific domains such as IoT, SCADA/ICS, or SDN \cite{deceptiontrends2024,dolos2023,aiipot2023}. Addressing these gaps requires extending deception design beyond “point solutions” toward multi-dimensional, phase-aware and domain-spanning architectures.
+The 2024 survey systematically maps deception mechanisms against dimensions (Data, Network, System, Software),
+defense phases (Prevention, Detection, Reaction, Forensic), and application scenarios (IoT, Cloud, ICS, Enterprise, Military)
+\cite{deceptiontrends2024}. This mapping reveals several coverage gaps. First, many solutions remain network-centric and
+underutilize data- and software-level deception, despite their potential for high-fidelity traps (e.g., honey-data,
+application-layer perturbations) \cite{deceptiontrends2024}. Second, the \emph{forensic} phase is comparatively neglected:
+while deception is widely used for detection and reaction, few works exploit deception-generated telemetry systematically
+for post-incident analysis and long-term improvement of defenses \cite{deceptiontrends2024,nawrocki2016survey}.
+Third, several high-impact scenarios (e.g., large enterprise environments or cross-domain infrastructures) still lack
+generic, reusable frameworks; most proposals are tightly tailored to specific domains such as IoT, SCADA/ICS,
+or SDN \cite{deceptiontrends2024,dolos2023,aiipot2023}. Addressing these gaps requires extending deception design
+beyond “point solutions” toward multidimensional, phase-aware and domain-spanning architectures.
 
 \paragraph{AI Integration: Explainability, Robustness, and Trust.}
-While Beltrán López et al.\ document a rapid increase in AI-based CYDEC mechanisms (ML, DL, RL), they also point out that virtually none of the surveyed works address explainability, trustworthiness, or robustness of the underlying models in a systematic way \cite{deceptiontrends2024}. This confirms and complements the observations from DRL-based defense architectures, which focus on performance (e.g., reward maximization, detection rates) but provide limited insight into the interpretability of learned policies or their resilience against adversarial manipulation \cite{hammad2024deep}. The survey explicitly identifies the lack of XAI-focused studies as a critical gap for operational adoption: without transparent decision-making, security operators cannot reliably validate or debug AI-driven deception policies \cite{deceptiontrends2024}. Moreover, AI models used in CYDEC can themselves become targets for poisoning or evasion attacks, yet robustness analyses are largely absent \cite{deceptiontrends2024}. Future work must therefore (i) develop explainable AI methods tailored to deception (e.g., policy summarization, human-interpretable state abstractions), (ii) evaluate robustness under adversarial settings, and (iii) define assurance processes that make AI-based deception acceptable in high-stakes environments.
+While Beltrán López et al.\ document a rapid increase in AI-based CYDEC mechanisms (ML, DL, RL), they also point out that
+virtually none of the surveyed works address explainability, trustworthiness, or robustness of the underlying models systematically \cite{deceptiontrends2024}.
+This confirms and complements the observations from DRL-based defense architectures,
+which focus on performance (e.g., reward maximization, detection rates) but provide limited insight into the interpretability
+of learned policies or their resilience against adversarial manipulation \cite{hammad2024deep}. The survey explicitly
+identifies the lack of XAI-focused studies as a critical gap for operational adoption: without transparent decision-making,
+security operators cannot reliably validate or debug AI-driven deception policies \cite{deceptiontrends2024}. Moreover,
+AI models used in CYDEC can themselves become targets for poisoning or evasion attacks, yet robustness analyses are
+largely absent \cite{deceptiontrends2024}. Future work must therefore (i) develop explainable AI methods tailored
+to deception (e.g., policy summarization, human-interpretable state abstractions), (ii) evaluate robustness under
+adversarial settings, and (iii) define assurance processes that make AI-based deception acceptable in high-stakes environments.
 
 \paragraph{Scalability and State-Space Explosion in Adaptive Systems.}
-Both the DRL literature and the 2024 survey converge on the challenge of scaling adaptive deception to realistic infrastructures \cite{hammad2024deep,deceptiontrends2024}. As Hammad et al.\ note, the Markov Decision Process formulation for network-wide defense suffers from state-space explosion as the number of hosts, services, and possible actions grows \cite{hammad2024deep}. Beltrán López et al.\ generalize this observation, pointing out that many AI-based proposals are evaluated in small or synthetic testbeds, with limited evidence of feasibility in large enterprise or multi-domain environments \cite{deceptiontrends2024}. Research directions already hinted at in these works include hierarchical or distributed RL, transfer learning across similar networks, and hybrid architectures that combine rule-based orchestration with learned policies \cite{hammad2024deep,deceptiontrends2024}. Systematically exploring these directions is essential to move from proof-of-concept prototypes to deployable, scalable deception platforms.
+Both the DRL literature and the 2024 survey converge on the challenge of scaling adaptive deception to realistic
+infrastructures \cite{hammad2024deep,deceptiontrends2024}. As Hammad et al.\ note, the Markov Decision Process
+formulation for network-wide defense suffers from state-space explosion as the number of hosts, services, and
+possible actions grows \cite{hammad2024deep}. Beltrán López et al.\ generalize this observation, pointing out
+that many AI-based proposals are evaluated in small or synthetic testbeds, with limited evidence of feasibility
+in large enterprise or multi-domain environments \cite{deceptiontrends2024}. Research directions already hinted
+at in these works include hierarchical or distributed RL, transfer learning across similar networks, and hybrid
+architectures that combine rule-based orchestration with learned policies \cite{hammad2024deep,deceptiontrends2024}.
+Systematically exploring these directions is essential to move from proof-of-concept prototypes to deployable,
+scalable deception platforms.

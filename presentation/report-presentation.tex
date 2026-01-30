@@ -1,0 +1,282 @@
+\documentclass[12pt, aspectratio=169]{beamer}
+\usetheme{CambridgeUS}
+\usecolortheme{beaver}
+\setbeamertemplate{navigation symbols}{}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+\title[SLR on Cyber Deception]{A Systematic Literature Review on Cyber Deception}
+\subtitle{From Game Theory to Generative AI}
+\author{Alexandru Nicolescu}
+\institute[Unibo]{University of Bologna, MSc in Computer Science}
+\date{February 2026}
+
+\begin{document}
+\maketitle
+
+\begin{frame}{Agenda}
+    \tableofcontents
+\end{frame}
+
+\begin{frame}{Research Methodology}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \textbf{Search Strategy}
+        \begin{itemize}
+            \item \textbf{Sources:} Google Scholar, IEEE Xplore, ACM DL, USENIX.
+            \item \textbf{Keywords:} "Cyber Deception", "Honeypots", "MTD", combined with "LLM", "Game Theory", "RL".
+            \item \textbf{Time Window:} 2002 (Foundational) -- 2025 (Emerging).
+        \end{itemize}
+
+        \column{0.5\textwidth}
+        \textbf{Quality Assessment (Tiered Approach)}
+        To balance authority and novelty:
+        \begin{itemize}
+            \item \textbf{Tier 1 (Gold Standard):} Top-tier venues (CORE A*/A) like USENIX Security, IEEE TIFS, ACM CSUR.
+            \item \textbf{Tier 2 (Emerging):} Pre-prints (arXiv) for cutting-edge LLM/AI research (2023-2025).
+            \item \textbf{Tier 3:} Contextual contributions.
+        \end{itemize}
+    \end{columns}
+\end{frame}
+
+\section{Introduction}
+\begin{frame}{Context: The Need for a Third Line of Defense}
+    \begin{itemize}
+        \item \textbf{Current Landscape:} A "State of War". Traditional defenses (Access Control, IDS) are failing against modern threats.
+        \item \textbf{The Gap:} IDS are reactive and signature-based. They fail against zero-days.
+        \item \textbf{Cyber Deception:} A proactive "Active Defense" strategy.
+              \begin{block}{Definition}
+                  Deliberate manipulation of the attacker's perception, beliefs, or actions to cause failure or resource waste.
+              \end{block}
+        \item \textbf{Evolution:} From simple, static honeypots to complex, AI-driven adaptive ecosystems.
+    \end{itemize}
+\end{frame}
+
+\section{Taxonomy of Deception Tactics}
+\begin{frame}{Taxonomy: Conceptual Frameworks}
+    Deception can be categorized by \textit{mechanism} (How it works):
+
+    \vspace{0.5cm}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \textbf{1. Crypsis (Hiding the Real)}
+        \begin{itemize}
+            \item \textbf{Perturbation:} Adding noise to data.
+            \item \textbf{MTD:} Shifting attack surface.
+            \item \textbf{Obfuscation:} Hiding routing/assets.
+        \end{itemize}
+
+        \column{0.5\textwidth}
+        \textbf{2. Mimesis (Showing the False)}
+        \begin{itemize}
+            \item \textbf{Static (Honey-X):} Decoys, Honey-tokens.
+            \item \textbf{Dynamic (Engagement):} Interactive story-telling to guide attackers.
+        \end{itemize}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Taxonomy: Deployment Layers}
+    Deception operates across three distinct layers:
+
+    \begin{enumerate}
+        \item \textbf{Network \& Protocol Level:}
+              \begin{itemize}
+                  \item Topology Manipulation (MTD), Protocol Emulation (Honeyd).
+                  \item fake services via ARP spoofing.
+              \end{itemize}
+
+        \item \textbf{Host \& Application Level:}
+              \begin{itemize}
+                  \item Server-side Honeypots, Honey-tokens (fake AWS keys).
+                  \item Shadow Honeypots (redirecting traffic).
+              \end{itemize}
+
+        \item \textbf{Cognitive \& Semantic Level:}
+              \begin{itemize}
+                  \item Targeting the \textit{human} mind.
+                  \item Fake errors, linguistic deception to induce hesitation.
+              \end{itemize}
+    \end{enumerate}
+\end{frame}
+
+\section{Reactive vs. Proactive Strategies}
+\begin{frame}{Strategic Evolution: Reactive vs. Proactive}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{alertblock}{Reactive (Traditional)}
+            \begin{itemize}
+                \item \textbf{Model:} Static, passive traps.
+                \item \textbf{Goal:} Forensics \& Detection.
+                \item \textbf{Limit:} Cedes initiative to the attacker. High fingerprinting risk.
+            \end{itemize}
+        \end{alertblock}
+
+        \column{0.5\textwidth}
+        \begin{exampleblock}{Proactive (Modern)}
+            \begin{itemize}
+                \item \textbf{Model:} Anticipates \& Manipulates.
+                \item \textbf{Goal:} Deterrence \& Misdirection.
+                \item \textbf{Enablers:} Game Theory (Signaling), MTD, Cognitive biases.
+            \end{itemize}
+        \end{exampleblock}
+    \end{columns}
+    \vspace{0.5cm}
+    \centering
+    \textit{The shift involves moving from "detecting the breach" to "managing the adversary".}
+\end{frame}
+
+\section{Deception Placement Timing Models}
+\begin{frame}{Timing Models: When to Deploy?}
+    The placement of deceptive artifacts has evolved from design-time to run-time.
+
+    \begin{itemize}
+        \item \textbf{Static (Design-Time):}
+              \begin{itemize}
+                  \item Manual configuration based on assumptions.
+                  \item Vulnerable to reconnaissance and "set it and forget it" failure.
+              \end{itemize}
+
+        \item \textbf{Dynamic (Run-Time):}
+              \begin{itemize}
+                  \item \textbf{On-Demand Instantiation:} Virtual honeypots created instantly upon scan (e.g., Honeyd).
+                  \item \textbf{Game-Theoretic Optimization:} Calculating optimal placement based on live attacker moves.
+                  \item \textbf{Adaptive Deployment (RL):} Autonomous agents learning optimal defense policies in real-time.
+              \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\section{Attacker Profiling \& Cognitive Modeling}
+\begin{frame}{Targeting the Adversary}
+    Modern systems move beyond "one-size-fits-all" traps to model the attacker.
+
+    \vspace{0.5cm}
+    \textbf{1. Explicit Cognitive Modeling:}
+    \begin{itemize}
+        \item Disrupting the \textbf{OODA Loop} (Observe-Orient-Decide-Act).
+        \item Exploiting biases: \textit{Confirmation Bias} (planting data that confirms false hypotheses) and \textit{Decoy Effect}.
+    \end{itemize}
+
+    \textbf{2. Implicit Modeling (Game Theory \& AI):}
+    \begin{itemize}
+        \item \textbf{Signaling Games:} Manipulating attacker's belief distribution via "Cheap Talk" (costless deceptive signals).
+        \item \textbf{RL Agents:} Implicitly learning attacker profiles by observing state transitions and reward maximization.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Hacking the Human: Cognitive Deception}
+    Beyond algorithms, deception targets the human operator's \textbf{OODA Loop} (Observe-Orient-Decide-Act).
+
+    \begin{block}{Exploiting Cognitive Biases}
+        \begin{itemize}
+            \item \textbf{Confirmation Bias:} Planting false data that confirms the attacker's pre-existing hypothesis, reinforcing their wrong path.
+            \item \textbf{Decoy Effect:} Presenting a clearly inferior option to manipulate the choice between other targets.
+        \end{itemize}
+    \end{block}
+
+    \textbf{Goal-Oriented Deception:}
+    Understanding the attacker's specific objective (e.g., "steal database") and constructing a high-effort, fabricated path towards it.
+\end{frame}
+
+\begin{frame}{The Mechanics of Deception: Signaling Games}
+    Deception is modeled as a \textbf{Signaling Game} with incomplete information.
+
+    \vspace{0.5cm}
+    \begin{itemize}
+        \item \textbf{The Players:}
+              \begin{itemize}
+                  \item \textbf{Sender (Defender):} Possesses private information (True Network State).
+                  \item \textbf{Receiver (Attacker):} Updates beliefs based on observed signals.
+              \end{itemize}
+
+        \item \textbf{The Strategy ("Cheap Talk"):}
+              The defender transmits costless, misleading signals (e.g., fake traffic patterns) to alter the attacker's belief distribution.
+
+        \item \textbf{Goal:} Maximize the probability that the attacker chooses a suboptimal action based on falsified intelligence.
+    \end{itemize}
+\end{frame}
+
+\section{Role of AI, LLMs, and RL}
+\begin{frame}{AI for Defense: Adaptive \& Generative}
+    \textbf{Deep Reinforcement Learning (DRL):}
+    \begin{itemize}
+        \item Frameworks use DQN/PPO to autonomously orchestrate defense.
+        \item Cycle: Data Ingestion $\rightarrow$ DRL Decision $\rightarrow$ Response Execution.
+    \end{itemize}
+
+    \textbf{Generative Honeypots (LLMs):}
+    \begin{itemize}
+        \item \textit{HoneyGPT, shelLM}: Use LLMs to generate realistic terminal responses dynamically.
+        \item Overcomes the "static signature" problem of traditional honeypots.
+        \item \textbf{Limitations:} Context window "amnesia" (forgetting file creation) and hallucinations (fake syntax errors).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{AI as the Threat: The Offensive Arms Race}
+    Defenders must adapt to AI-driven adversaries:
+
+    \begin{itemize}
+        \item \textbf{Automated Pentesting:} Tools like \textit{PentestGPT} maintain context and automate complex attack chains (228\% improvement over GPT-4).
+        \item \textbf{Autonomous Agents:} LLM agents utilizing ReAct frameworks to exploit 1-day vulnerabilities autonomously.
+    \end{itemize}
+
+    \vspace{0.5cm}
+    \begin{alertblock}{Implication}
+        Future deception must be designed not just to fool humans, but to poison the reasoning logic of AI agents.
+    \end{alertblock}
+\end{frame}
+
+\section{Future Challenges}
+\begin{frame}{Open Challenges \& Research Directions}
+    \textbf{1. Predictive \& Intent-Aware Deception:}
+    \begin{itemize}
+        \item Moving from reactive RL to truly predictive models that anticipate intent \textit{before} reconnaissance.
+    \end{itemize}
+
+    \textbf{2. Domain-Specific Gaps (OT/ICS):}
+    \begin{itemize}
+        \item Lack of high-fidelity deception for Critical Infrastructure.
+        \item \textit{Fingerprinting:} Generic honeypots leak IT-stack artifacts (e.g., Window Scaling) inconsistent with real OT hardware.
+    \end{itemize}
+
+    \textbf{3. Metrics \& Evaluation:}
+    \begin{itemize}
+        \item Absence of standardized metrics (TTPs, Time-to-Compromise) makes comparing strategies impossible.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{The Evaluation Crisis: Lack of Standard Metrics}
+    A major barrier to adoption is the inability to compare deception strategies.
+
+    \begin{itemize}
+        \item \textbf{Current State:} Studies use heterogeneous, ad-hoc criteria (e.g., "number of packets captured", "malware samples").
+        \item \textbf{The Missing Standard:} We lack unified metrics for:
+              \begin{itemize}
+                  \item \textbf{Attacker Cost:} Time/Resources wasted.
+                  \item \textbf{Believability:} Probability of deception detection.
+                  \item \textbf{Enticement:} Ratio of attackers lured vs. total threats.
+              \end{itemize}
+        \item \textbf{Consequence:} Impossible to answer basic questions like "Is strategy A more cost-effective than strategy B?".
+    \end{itemize}
+\end{frame}
+
+\section{Conclusion}
+\begin{frame}{Conclusion}
+    \begin{enumerate}
+        \item \textbf{Evolution:} Cyber Deception has matured from static traps to dynamic, intelligent ecosystems.
+        \item \textbf{Paradigm Shift:} The focus has moved from \textit{detection} to \textit{active manipulation} of the adversary's reality.
+        \item \textbf{The Future:} The battleground is shifting to \textbf{AI vs. AI}. Defensive systems must become autonomous, predictive, and high-fidelity to counter machine-speed attacks.
+    \end{enumerate}
+
+\end{frame}
+
+\begin{frame}[plain]
+    \centering
+    \Huge \textbf{Thank you for your attention}
+
+    \vspace{4cm}
+    \normalsize
+    Alexandru Nicolescu \\
+    \textit{alexandru.nicolescu@studio.unibo.it}
+\end{frame}
+\end{document}

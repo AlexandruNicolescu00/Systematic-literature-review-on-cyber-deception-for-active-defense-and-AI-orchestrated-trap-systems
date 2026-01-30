@@ -10,3 +10,6 @@
 *.fdb_latexmk
 *.xml
 *.synctex.gz
+*.nav
+*.snm
+*.bbl*
